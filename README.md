@@ -16,3 +16,13 @@ Além disso, o gestor é notificado em caso de manutenções programadas.
 Frontend: `React`
 Backend: `NodeJS`, `Typescript` e `NestJS`
 Database: `PostgresSQL`
+
+## Backlog do Produto
+- Como Administrador de frota, gostaria de adicionar um veículo à minha frota.
+- Como Administrador de frota, gostaria de editar e deletar informações sobre um veículo.
+- Como Administrador de frota, gostaria de programar a manutenção de um veículo.
+- Como Administrador de frota, gostaria de receber notificações sobre manutenções que se aproximam.
+- Como Administrador de frota, gostaria de visualizar a distribuição dos veículos entre os estados de manutenção, alocados ou disponíveis.
+- Como Administrador de frota, gostaria de adicionar um motorista à base de dados.
+- Como Administrador de frota, gostaria de alocar um veículo para um motorista.
+- Como Administrador de frota, gostaria de editar e deletar informações sobre motoristas.
