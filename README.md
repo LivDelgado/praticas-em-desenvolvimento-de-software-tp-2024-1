@@ -44,22 +44,29 @@ O figma do projeto pode ser encontrado [aqui](https://www.figma.com/file/wqJ3OV2
 
 <details>
   <summary>Como Administrador de frota, gostaria de adicionar um veículo à minha frota.</summary>
-  - Criar aplicação base em React
-  - Instalar o banco de dados e criar as primeiras tabelas
-  - Criar aplicação base Node
-  - Criar docker compose para subir todas as aplicações
-  - Implementar API para adicionar um veículo
-  - Implementar tela de cadastro de veículo
+
+  Tarefas:
+
+  * Criar aplicação base em React
+  * Instalar o banco de dados e criar as primeiras tabelas
+  * Criar aplicação base Node
+  * Criar docker compose para subir todas as aplicações
+  * Implementar API para adicionar um veículo
+  * Implementar tela de cadastro de veículo
+
 </details>
 
 <details>
   <summary>Como Administrador de frota, gostaria de editar e deletar informações sobre um veículo.</summary>
-  - Implementar tela de listagem de veículos
-  - Implementar API de listagem de veículos
-  - Implementar API para obter informações de um veículo específico
-  - Implementar API para editar um veículo
-  - Implementar API para deletar um veículo
-  - Implementar modal de confirmação de deleção de veículo
+
+  Tarefas:
+
+  * Implementar tela de listagem de veículos
+  * Implementar API de listagem de veículos
+  * Implementar API para obter informações de um veículo específico
+  * Implementar API para editar um veículo
+  * Implementar API para deletar um veículo
+  * Implementar modal de confirmação de deleção de veículo
 </details>
 
 <details>
