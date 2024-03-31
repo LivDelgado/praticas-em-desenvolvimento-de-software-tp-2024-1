@@ -40,3 +40,40 @@ O figma do projeto pode ser encontrado [aqui](https://www.figma.com/file/wqJ3OV2
 14. Como Administrador de frota, gostaria de receber um relatório com a alocação dos motoristas para auxiliar no pagamento dos mesmos.
 15. Como Administrador de frota, gostaria de visualizar os custos de manutenção por veículo.
 
+## Sprint 1
+
+<details>
+  <summary>Como Administrador de frota, gostaria de adicionar um veículo à minha frota.</summary>
+</details>
+
+<details>
+  <summary>Como Administrador de frota, gostaria de editar e deletar informações sobre um veículo.</summary>
+</details>
+
+<details>
+  <summary>Como Administrador de frota, gostaria de programar a manutenção de um veículo.</summary>
+</details>
+
+<details>
+  <summary>Como Administrador de frota, gostaria de receber notificações sobre manutenções que se aproximam.</summary>
+</details>
+
+<details>
+  <summary>Como Administrador de frota, gostaria de visualizar a distribuição dos veículos entre os estados de manutenção, alocados ou disponíveis.</summary>
+</details>
+
+<details>
+  <summary>Como Administrador de frota, gostaria de adicionar um motorista à base de dados.</summary>
+</details>
+
+<details>
+  <summary>Como Administrador de frota, gostaria de editar e deletar informações sobre motoristas.</summary>
+</details>
+
+<details>
+  <summary>Como Administrador de frota, gostaria de alocar um veículo para um motorista.</summary>
+</details>
+
+<details>
+  <summary>Como Administrador de frota, gostaria de editar e deletar a alocação de um veículo para um motorista.</summary>
+</details>
