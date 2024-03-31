@@ -17,6 +17,10 @@ Frontend: `React`
 Backend: `NodeJS`, `Typescript` e `NestJS`
 Database: `PostgresSQL`
 
+# Prototipação
+
+O figma do projeto pode ser encontrado [aqui](https://www.figma.com/file/wqJ3OV2hayIyu3NYOiKenk/palantir?type=design&node-id=0-1&mode=design&t=oSIUZozwVaHgTDtX-0).
+
 # Backlog 
 
 ## Backlog do Produto
