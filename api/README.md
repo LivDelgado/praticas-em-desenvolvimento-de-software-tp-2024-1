@@ -3,9 +3,6 @@
 
 ## Getting Started 🚀
 
-### Overview
-The project aims to helps people putting their financial lives on track. To achieve this, we offer a tool to calculate person financial wellness based on person analyzing annual income and monthly costs. 
-
 ---
 ### Docker
 The first thing you need is to setup docker, please follow the step: 
