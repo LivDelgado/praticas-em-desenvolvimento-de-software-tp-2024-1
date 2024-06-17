@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { VeiculosService } from './veiculo.service';
+import { VeiculosService } from '../../core/veiculo.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Veiculo } from './entity/veiculo.entity';
-import { VeiculosDataSource } from './datasource/veiculo.datasource';
+import { Veiculo } from '../../core/veiculo.entity';
+import { VeiculosDataSource } from './veiculo.datasource';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Veiculo])],

@@ -1,7 +1,7 @@
 import { Injectable, Dependencies } from '@nestjs/common';
 import { getRepositoryToken, InjectRepository } from '@nestjs/typeorm';
+import { Veiculo } from 'src/veiculos/core/veiculo.entity';
 import { Repository } from 'typeorm';
-import { Veiculo } from '../entity/veiculo.entity';
 
 @Injectable()
 @Dependencies(getRepositoryToken(Veiculo))
