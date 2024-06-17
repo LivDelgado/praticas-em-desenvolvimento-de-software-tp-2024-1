@@ -2,6 +2,9 @@
 
 ## Backend
 
+```bash
+make setup
+```
 
 ## Frontend
 
