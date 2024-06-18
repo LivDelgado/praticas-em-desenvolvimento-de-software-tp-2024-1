@@ -6,6 +6,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Put,
   UseFilters,
 } from '@nestjs/common';
 import { HttpExceptionFilter } from '../../http-exception.filter';
@@ -40,5 +41,13 @@ export class VeiculoController {
   @UseFilters(new HttpExceptionFilter())
   async remove(@Param('veiculoId', new ParseIntPipe()) veiculoId) {
     await this.veiculoService.deleteById(veiculoId);
+  }
+
+  @Put('/:veiculoId')
+  async put(
+    @Param('veiculoId', new ParseIntPipe()) veiculoId,
+    @Body() veiculo: VeiculoDto,
+  ): Promise<GetVeiculoDto> {
+    return this.veiculoService.update(veiculoId, veiculo);
   }
 }

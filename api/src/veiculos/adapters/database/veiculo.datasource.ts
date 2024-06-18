@@ -16,6 +16,13 @@ export class VeiculosDataSource {
     return await this.VeiculoRepository.save(newVeiculo);
   }
 
+  async update(id: number, veiculo: Partial<Veiculo>): Promise<Veiculo> {
+    return await this.VeiculoRepository.save({
+      id: id,
+      ...veiculo,
+    });
+  }
+
   async findOne(
     montadora: string,
     modelo: string,

@@ -31,6 +31,15 @@ export class VeiculosService {
     return GetVeiculoDto.fromVeiculo(veiculoCriado);
   }
 
+  async update(id: number, veiculo: VeiculoDto): Promise<GetVeiculoDto> {
+    const veiculoCriado = await this.veiculosDataSource.update(
+      id,
+      VeiculoDto.toDomain(veiculo),
+    );
+
+    return GetVeiculoDto.fromVeiculo(veiculoCriado);
+  }
+
   async list(): Promise<GetVeiculoDto[]> {
     const veiculos = await this.veiculosDataSource.findAll();
     return veiculos.map((it) => GetVeiculoDto.fromVeiculo(it));
