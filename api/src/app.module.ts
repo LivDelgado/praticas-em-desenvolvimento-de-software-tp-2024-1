@@ -1,14 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
-import { User } from './users/entity/user.entity';
-import { JobsModule } from './job/job.module';
-import { JobsController } from './job/controller/job.controller';
-import { JobsDataSource } from './job/datasource/job.datasource';
-import { Job } from './job/entity/job.entity';
-import { AuthController } from './auth/controller/auth.controller';
+import { VeiculosModule } from './veiculos/veiculo.module';
+import { Veiculo } from './veiculos/core/veiculo.entity';
+import { VeiculoController } from './veiculos/presentation/veiculo.controller';
+import { VeiculosDataSource } from './veiculos/adapters/database/veiculo.datasource';
 
 @Module({
   imports: [
@@ -21,17 +17,12 @@ import { AuthController } from './auth/controller/auth.controller';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       synchronize: true,
-      entities: [User, Job],
-
+      entities: [Veiculo],
       migrations: [],
     }),
-    AuthModule,
-    UsersModule,
-    JobsModule,
+    VeiculosModule,
   ],
-  controllers: [JobsController, AuthController],
-  providers: [
-    JobsDataSource,
-  ],
+  controllers: [VeiculoController],
+  providers: [VeiculosDataSource],
 })
 export class AppModule {}

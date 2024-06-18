@@ -19,7 +19,8 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test_e2e/jest-e2e.json",
     "typeorm": "typeorm-ts-node-commonjs",
-    "migrations": "typeorm-ts-node-commonjs migration:run -d dist/ormconfig.js"
+    "migrations": "typeorm-ts-node-commonjs migration:run -d dist/ormconfig.js",
+    "generate-migration": "typeorm-ts-node-commonjs migration:generate -d dist/ormconfig.js"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
