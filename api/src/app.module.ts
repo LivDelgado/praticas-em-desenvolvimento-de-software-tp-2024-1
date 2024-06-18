@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { VeiculosModule } from './veiculos/adapters/database/veiculo.module';
+import { VeiculosModule } from './veiculos/veiculo.module';
 import { Veiculo } from './veiculos/core/veiculo.entity';
 import { VeiculoController } from './veiculos/presentation/veiculo.controller';
 import { VeiculosDataSource } from './veiculos/adapters/database/veiculo.datasource';

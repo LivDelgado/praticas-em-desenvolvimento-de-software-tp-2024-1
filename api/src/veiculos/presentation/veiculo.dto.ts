@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsDateString, IsEnum, IsString } from 'class-validator';
-import { StatusVeiculo } from '../core/veiculo.entity';
+import { IsDateString, IsEnum, IsString } from 'class-validator';
+import { StatusVeiculo, Veiculo } from '../core/veiculo.entity';
 
 export class VeiculoDto {
   @IsString()
@@ -34,4 +34,26 @@ export class VeiculoDto {
     default: StatusVeiculo.DISPONIVEL,
   })
   status: StatusVeiculo;
+
+  static toDomain(veiculoDto: VeiculoDto): Veiculo {
+    const veiculo = new Veiculo();
+    veiculo.ano = veiculoDto.ano;
+    veiculo.montadora = veiculoDto.montadora;
+    veiculo.modelo = veiculoDto.modelo;
+    veiculo.status = veiculoDto.status;
+    veiculo.dataAquisicao = veiculoDto.dataAquisicao;
+
+    return veiculo;
+  }
+
+  static fromVeiculo(veiculo: Veiculo): VeiculoDto {
+    const veiculoDto = new VeiculoDto();
+    veiculoDto.ano = veiculo.ano;
+    veiculoDto.modelo = veiculo.modelo;
+    veiculoDto.montadora = veiculo.montadora;
+    veiculoDto.status = veiculo.status;
+    veiculoDto.dataAquisicao = veiculo.dataAquisicao;
+
+    return veiculoDto;
+  }
 }

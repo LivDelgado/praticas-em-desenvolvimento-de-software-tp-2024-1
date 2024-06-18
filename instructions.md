@@ -3,6 +3,7 @@
 ## Backend
 
 ```bash
+cd api
 make setup
 ```
 
@@ -16,5 +17,6 @@ yarn start
 # Gerando migrations
 
 ```bash
+cd api
 make create-migrations migrationName=<MigrationName>
 ```

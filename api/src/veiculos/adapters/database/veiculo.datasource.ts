@@ -11,20 +11,8 @@ export class VeiculosDataSource {
     private readonly VeiculoRepository: Repository<Veiculo>,
   ) {}
 
-  async save({
-    montadora,
-    modelo,
-    ano,
-    dataAquisicao,
-    status,
-  }): Promise<Veiculo> {
-    const newVeiculo = this.VeiculoRepository.create({
-      montadora: montadora,
-      modelo: modelo,
-      ano: ano,
-      dataAquisicao: dataAquisicao,
-      status: status,
-    });
+  async save(veiculo: Partial<Veiculo>): Promise<Veiculo> {
+    const newVeiculo = this.VeiculoRepository.create(veiculo);
     return await this.VeiculoRepository.save(newVeiculo);
   }
 
