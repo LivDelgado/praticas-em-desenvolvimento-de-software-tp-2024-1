@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseFilters } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseFilters } from '@nestjs/common';
 import { HttpExceptionFilter } from '../../http-exception.filter';
 import { VeiculosService } from '../core/veiculo.service';
 import { VeiculoDto } from './veiculo.dto';
@@ -11,5 +11,11 @@ export class VeiculoController {
   @Post()
   async post(@Body() veiculo: VeiculoDto): Promise<VeiculoDto> {
     return this.veiculoService.create(veiculo);
+  }
+
+  @Get()
+  @UseFilters(new HttpExceptionFilter())
+  async get(): Promise<VeiculoDto[]> {
+    return this.veiculoService.list();
   }
 }

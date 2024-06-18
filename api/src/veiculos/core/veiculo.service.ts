@@ -30,4 +30,9 @@ export class VeiculosService {
 
     return VeiculoDto.fromVeiculo(veiculoCriado);
   }
+
+  async list(): Promise<VeiculoDto[]> {
+    const veiculos = await this.veiculosDataSource.findAll();
+    return veiculos.map((it) => VeiculoDto.fromVeiculo(it));
+  }
 }
