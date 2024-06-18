@@ -16,6 +16,13 @@ export class VeiculosDataSource {
     return await this.VeiculoRepository.save(newVeiculo);
   }
 
+  async update(id: number, veiculo: Partial<Veiculo>): Promise<Veiculo> {
+    return await this.VeiculoRepository.save({
+      id: id,
+      ...veiculo,
+    });
+  }
+
   async findOne(
     montadora: string,
     modelo: string,
@@ -30,5 +37,13 @@ export class VeiculosDataSource {
 
   async findById(id: number): Promise<Veiculo> {
     return this.VeiculoRepository.findOneBy({ id });
+  }
+
+  async findAll(): Promise<Veiculo[]> {
+    return this.VeiculoRepository.find();
+  }
+
+  async deleteById(id: number) {
+    this.VeiculoRepository.delete({ id: id });
   }
 }

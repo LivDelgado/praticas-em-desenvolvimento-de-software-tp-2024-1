@@ -45,14 +45,19 @@ export class VeiculoDto {
 
     return veiculo;
   }
+}
 
-  static fromVeiculo(veiculo: Veiculo): VeiculoDto {
-    const veiculoDto = new VeiculoDto();
+export class GetVeiculoDto extends VeiculoDto {
+  id: number;
+
+  static fromVeiculo(veiculo: Veiculo): GetVeiculoDto {
+    const veiculoDto = new GetVeiculoDto();
     veiculoDto.ano = veiculo.ano;
     veiculoDto.modelo = veiculo.modelo;
     veiculoDto.montadora = veiculo.montadora;
     veiculoDto.status = veiculo.status;
     veiculoDto.dataAquisicao = veiculo.dataAquisicao;
+    veiculoDto.id = veiculo.id;
 
     return veiculoDto;
   }
