@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseIntPipe,
@@ -33,5 +34,11 @@ export class VeiculoController {
     @Param('veiculoId', new ParseIntPipe()) veiculoId,
   ): Promise<GetVeiculoDto> {
     return this.veiculoService.getById(veiculoId);
+  }
+
+  @Delete('/:veiculoId')
+  @UseFilters(new HttpExceptionFilter())
+  async remove(@Param('veiculoId', new ParseIntPipe()) veiculoId) {
+    await this.veiculoService.deleteById(veiculoId);
   }
 }

@@ -40,4 +40,8 @@ export class VeiculosService {
     const veiculo = await this.veiculosDataSource.findById(id);
     return GetVeiculoDto.fromVeiculo(veiculo);
   }
+
+  async deleteById(id: number) {
+    await this.veiculosDataSource.deleteById(id);
+  }
 }

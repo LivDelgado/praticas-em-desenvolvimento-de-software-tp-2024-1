@@ -35,4 +35,8 @@ export class VeiculosDataSource {
   async findAll(): Promise<Veiculo[]> {
     return this.VeiculoRepository.find();
   }
+
+  async deleteById(id: number) {
+    this.VeiculoRepository.delete({ id: id });
+  }
 }
