@@ -13,8 +13,10 @@ const EdicaoVeiculo = () => {
   useEffect(() => {
     const fetchVeiculo = async () => {
       try {
-        const response = await VeiculoApi.get(Number(veiculoId));
-        setVeiculo(response.data);
+        const fetched = await VeiculoApi.get(Number(veiculoId));
+        // new Date().toISOString().substring(0, 10)
+        fetched.dataAquisicao = new Date(fetched.dataAquisicao);
+        setVeiculo(fetched);
       } catch (error) {
         console.error(error);
       }
@@ -24,21 +26,19 @@ const EdicaoVeiculo = () => {
   }, [veiculoId]);
 
   const onSubmit = (data: Veiculo) => {
-    console.log(data);
-
     VeiculoApi.update({
       ...data,
       status: veiculo?.status ?? StatusVeiculo.Disponivel,
       id: Number(veiculoId)
     })
-    .then(() => navigate('/veiculos'))
-    .catch((error) => console.error(error));
+      .then(() => navigate('/veiculos'))
+      .catch((error) => console.error(error));
   }
 
   return (
     <div>
       <h1>Editar Veículo</h1>
-      <FormularioVeiculos veiculo={veiculo} onSubmit={onSubmit} />
+      {veiculo && <FormularioVeiculos veiculo={veiculo} onSubmit={onSubmit} />}
     </div>
   );
 };

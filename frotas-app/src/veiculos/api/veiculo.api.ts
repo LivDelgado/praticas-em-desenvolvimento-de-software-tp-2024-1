@@ -6,12 +6,12 @@ const instance = axios.create(api);
 
 export const VeiculoApi = {
   getAll: async function () {
-    const response = await instance.get("/veiculos");
+    const response = await instance.get<Veiculo[]>("/veiculos");
     return response.data;
   },
 
   get: async function (id: number) {
-    const response = await instance.get(`/veiculos/${id}`);
+    const response = await instance.get<Veiculo>(`/veiculos/${id}`);
     return response.data;
   },
 

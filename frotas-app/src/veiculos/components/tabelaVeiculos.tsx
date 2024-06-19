@@ -52,7 +52,7 @@ function TabelaVeiculos() {
           {veiculos.map((veiculo) => (
             <tr key={veiculo.id}>
               <td>{veiculo.montadora + veiculo.modelo}</td>
-              <td>{new Date(veiculo.dataAquisicao).toLocaleDateString()}</td>
+              <td>{new Date(veiculo.dataAquisicao).toISOString().slice(0, 10)}</td>
               {/* <td>{veiculo.driver}</td> */}
               {/* <td>{veiculo.nextMaintenance}</td> */}
               <td>
