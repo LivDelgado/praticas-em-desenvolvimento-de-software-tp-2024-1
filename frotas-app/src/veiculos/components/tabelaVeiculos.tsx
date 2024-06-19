@@ -26,12 +26,14 @@ function TabelaVeiculos() {
   };
 
   const handleRemove = async (veiculo: Veiculo) => {
-    try {
-      await VeiculoApi.remove(veiculo.id);
-      fetchVeiculos();
-    } catch (error) {
-      console.error(error);
-    }
+    if (window.confirm("Deseja mesmo remover este veículo?")) {
+      try {
+        await VeiculoApi.remove(veiculo.id);
+        fetchVeiculos();
+      } catch (error) {
+        console.error(error);
+      }
+      }
   };
 
   return (
