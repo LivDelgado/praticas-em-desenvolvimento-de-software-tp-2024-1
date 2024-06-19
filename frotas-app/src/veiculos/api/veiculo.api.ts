@@ -19,6 +19,10 @@ export const VeiculoApi = {
     await instance.put(`/veiculos/${veiculo.id}`, veiculo);
   },
 
+  add: async function (veiculo: Veiculo) {
+    await instance.post('/veiculos', veiculo);
+  },
+
   remove: async function (id: number) {
     await instance.delete(`/veiculos/${id}`);
   },

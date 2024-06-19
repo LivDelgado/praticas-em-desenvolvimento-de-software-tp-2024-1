@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import { ListaVeiculos } from "./veiculos/screens/listaVeiculos";
 import EdicaoVeiculo from "./veiculos/screens/edicaoVeiculo";
+import CriacaoVeiculo from "./veiculos/screens/criacaoVeiculo";
 
 export default function App() {
   return (
@@ -26,6 +27,7 @@ export default function App() {
         <Routes>
           <Route path="/veiculos" element={<ListaVeiculos />} />
           <Route path="/veiculos/:veiculoId" element={<EdicaoVeiculo />} />
+          <Route path="/veiculos/novo" element={<CriacaoVeiculo />} />
         </Routes>
       </div>
     </Router>
