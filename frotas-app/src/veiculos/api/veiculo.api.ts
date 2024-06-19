@@ -1,5 +1,6 @@
 import { api } from "../../configs/axiosConfigs";
 import axios from "axios";
+import { Veiculo } from "../types/veiculo";
 
 const instance = axios.create(api);
 
@@ -14,9 +15,8 @@ export const VeiculoApi = {
     return response.data;
   },
 
-  // TODO - fix veiculo type
-  update: async function (veiculo: { id: any; }) {
-    await instance.patch(`/veiculos/${veiculo.id}`, veiculo);
+  update: async function (veiculo: Veiculo) {
+    await instance.put(`/veiculos/${veiculo.id}`, veiculo);
   },
 
   remove: async function (id: number) {
