@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { VeiculoApi } from '../api/veiculo.api';
 import { Veiculo } from '../types/veiculo';
+import { useNavigate } from 'react-router-dom';
 
 function TabelaVeiculos() {
   const [veiculos, setVeiculos] = useState<Veiculo[]>([]);
-  const [editing, setEditing] = useState<Veiculo | null>(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchVeiculos();
@@ -13,7 +15,6 @@ function TabelaVeiculos() {
   const fetchVeiculos = async () => {
     try {
       const veiculos = await VeiculoApi.getAll();
-      console.log(veiculos);
       setVeiculos(veiculos);
     } catch (error) {
       console.error(error);
@@ -21,23 +22,13 @@ function TabelaVeiculos() {
   };
 
   const handleEdit = (veiculo: Veiculo) => {
-    setEditing(veiculo);
+    navigate(`/veiculos/${veiculo.id}`)
   };
 
   const handleRemove = async (veiculo: Veiculo) => {
     try {
       await VeiculoApi.remove(veiculo.id);
       fetchVeiculos();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleUpdate = async (veiculoAtualizado: Veiculo) => {
-    try {
-      await VeiculoApi.update(veiculoAtualizado);
-      fetchVeiculos();
-      setEditing(null);
     } catch (error) {
       console.error(error);
     }
@@ -63,25 +54,13 @@ function TabelaVeiculos() {
               {/* <td>{veiculo.driver}</td> */}
               {/* <td>{veiculo.nextMaintenance}</td> */}
               <td>
-                {editing ? (
-                  <button onClick={() => handleUpdate(veiculo)}>Salvar</button>
-                ) : (
-                  <button onClick={() => handleEdit(veiculo)}>Editar</button>
-                )}
+                <button onClick={() => handleEdit(veiculo)}>Editar</button>
                 <button onClick={() => handleRemove(veiculo)}>Remover</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {editing && (
-        <div>
-          <label>
-            Data de aquisição:
-            <input type="date" value={new Date(editing.dataAquisicao).toLocaleDateString()} onChange={(e) => setEditing({...editing, dataAquisicao: new Date(e.target.value) })} />
-          </label>
-        </div>
-      )}
     </div>
   );
 }
