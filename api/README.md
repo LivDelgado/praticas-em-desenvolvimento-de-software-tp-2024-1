@@ -67,23 +67,8 @@ coverage/lcov-report/index.html
 
 --- 
 ## Architecture 
-The project uses NestJS and follows a simple structure which is:
-Controller → Service → DataSource.
+The project uses NestJS and adheres to a hexagonal architecture. Within each module, the code is organized into three layers:
 
--  Controller validate the requests and handle the exceptions.
--  Bussiness logic lives inside the Service.
--  DataSource make the querys to the database or other API's.
-
-## Structure Decisions
-For the annual tax value I decided to store it at the database, this make possible to change the tax value without redeploying the project. You can check the endpoint at the swagger.
-
-I also store the "annual thresholds" at the database for the same reason, but I didn't have time to make the endpoint for it.
-
-And for each score calculated I save the value at the database. This is important for keeping track of the data created, and generating reports in the future.
-
-### Next steps and improvements
-1. Add error monitoring and logging to the project.
-2. Create performance metrics.
-3. Feature flags.
-4. In-memory cache for tax and annual thresholds.
-5. Run E2E tests at the pipeline.
+-  Adapters, where we isolate the interactions of the code with external services, such as the database.
+-  Core, which contains the bussiness logic(services) and entities.
+-  Presentation, where we keep our ccontrollers and DTOs (Data Transfer Objects) for the module.
