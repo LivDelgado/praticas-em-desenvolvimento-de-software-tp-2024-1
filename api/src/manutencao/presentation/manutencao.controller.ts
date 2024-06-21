@@ -34,11 +34,12 @@ export class ManutencaoController {
 
   @Put('/:manutencaoId')
   async put(
+    @Param('veiculoId', new ParseIntPipe()) veiculoId,
     @Param('manutencaoId', new ParseIntPipe()) manutencaoId,
     @Body() manutencao: ManutencaoDto,
   ): Promise<GetManutencaoDto> {
     try {
-      return this.manutencaoService.update(manutencaoId, manutencao);
+      return this.manutencaoService.update(veiculoId, manutencaoId, manutencao);
     } catch (exception) {
       throw new HttpException(exception.message, HttpStatus.BAD_REQUEST);
     }

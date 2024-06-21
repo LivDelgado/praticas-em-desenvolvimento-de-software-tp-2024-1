@@ -12,7 +12,7 @@ const CriacaoManutencao = () => {
 
   const onSubmit = (data: Manutencao) => {
     ManutencaoApi.add(Number(veiculoId), data)
-    .then(() => navigate('/manutencoes')) // TODO - update navigate
+    .then(() => navigate(`/veiculos/${veiculoId}/manutencao`))
     .catch((error: any) => console.error(error));
   }
 

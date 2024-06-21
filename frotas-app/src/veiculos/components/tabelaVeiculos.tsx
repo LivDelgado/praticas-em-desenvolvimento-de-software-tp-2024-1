@@ -25,6 +25,10 @@ function TabelaVeiculos() {
     navigate(`/veiculos/${veiculo.id}`)
   };
 
+  const handleManutencao = (veiculo: Veiculo) => {
+    navigate(`/veiculos/${veiculo.id}/manutencao`)
+  };
+
   const handleRemove = async (veiculo: Veiculo) => {
     if (window.confirm("Deseja mesmo remover este veículo?")) {
       try {
@@ -56,7 +60,8 @@ function TabelaVeiculos() {
               {/* <td>{veiculo.driver}</td> */}
               <td>{veiculo.nextManutencaoDate ? new Date(veiculo.nextManutencaoDate).toISOString().slice(0, 10) : null}</td>
               <td>
-                <button onClick={() => handleEdit(veiculo)}>Editar</button>
+              <button onClick={() => handleManutencao(veiculo)}>Manutenção</button>
+              <button onClick={() => handleEdit(veiculo)}>Editar</button>
                 <button onClick={() => handleRemove(veiculo)}>Remover</button>
               </td>
             </tr>

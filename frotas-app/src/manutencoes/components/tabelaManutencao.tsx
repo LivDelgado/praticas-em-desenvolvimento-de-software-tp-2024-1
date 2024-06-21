@@ -11,7 +11,7 @@ function TabelaManutencao() {
 
   useEffect(() => {
     fetchManutencoes();
-  }, []);
+  }, [veiculoId]);
 
   const fetchManutencoes = async () => {
     try {
@@ -23,7 +23,7 @@ function TabelaManutencao() {
   };
 
   const handleEdit = (manutencao: Manutencao) => {
-    navigate(`/manutencoes/${manutencao.id}`)
+    navigate(`/veiculos/${veiculoId}/manutencao/${manutencao.id}`)
   };
 
   const handleRemove = async (manutencao: Manutencao) => {

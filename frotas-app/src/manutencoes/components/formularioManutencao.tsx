@@ -14,8 +14,8 @@ export const FormularioManutencao = ({ manutencao, onSubmit }: { manutencao: Man
         const values = getValues();
         const manutencaoAtualizado: Manutencao = {
             ...data,
-            dataInicio: new Date(values.dataInicio?.toString() ?? ""),
-            dataFim: new Date(values.dataFim?.toString() ?? ""),
+            dataInicio: new Date(values.dataInicioFormatada?.toString() ?? ""),
+            dataFim: new Date(values.dataFimFormatada?.toString() ?? ""),
         };
         onSubmit(manutencaoAtualizado);
     }

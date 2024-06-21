@@ -27,10 +27,11 @@ export class ManutencaoService {
   }
 
   async update(
+    veiculoId: number,
     id: number,
     manutencao: ManutencaoDto,
   ): Promise<GetManutencaoDto> {
-    const veiculo = await this.validateManutencao(id, manutencao);
+    const veiculo = await this.validateManutencao(veiculoId, manutencao, id);
 
     const manutencaoCriada = await this.manutencaoDataSource.update(
       id,
@@ -54,6 +55,7 @@ export class ManutencaoService {
   private async validateManutencao(
     veiculoId: number,
     manutencao: ManutencaoDto,
+    manutencaoId: number | undefined = undefined,
   ) {
     const veiculo = await this.veiculosDataSource.findById(veiculoId, true);
     if (!veiculo) {
@@ -70,6 +72,7 @@ export class ManutencaoService {
     if (
       manutencoes.some(
         (it) =>
+          it.id != manutencaoId &&
           !(
             new Date(manutencao.dataInicio) > new Date(it.dataFim) ||
             new Date(manutencao.dataFim) < new Date(it.dataInicio)

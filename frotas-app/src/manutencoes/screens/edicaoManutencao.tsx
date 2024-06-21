@@ -15,7 +15,6 @@ const EdicaoManutencao = () => {
       try {
         const manutencoesVeiculo = await ManutencaoApi.getAll(Number(veiculoId));
         const manutencao = manutencoesVeiculo.filter((it) => it.id === Number(manutencaoId))?.[0] as Manutencao;
-        // new Date().toISOString().substring(0, 10)
         manutencao.dataInicio = new Date(manutencao.dataInicio);
         manutencao.dataFim = new Date(manutencao.dataFim);
         setManutencao(manutencao);
@@ -23,16 +22,17 @@ const EdicaoManutencao = () => {
         console.error(error);
       }
     };
-
+  
     fetchManutencao();
-  }, [manutencaoId]);
+  }, [veiculoId, manutencaoId]);
+
 
   const onSubmit = (data: Manutencao) => {
     ManutencaoApi.update(Number(veiculoId), {
       ...data,
       id: Number(manutencaoId)
     })
-      .then(() => navigate('/')) // TODO - update navigation
+      .then(() => navigate(`/veiculos/${veiculoId}/manutencao`))
       .catch((error) => console.error(error));
   }
 
