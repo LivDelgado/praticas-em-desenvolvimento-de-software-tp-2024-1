@@ -26,14 +26,19 @@ export class ManutencaoService {
     return GetManutencaoDto.fromDomain(manutencaoCriada);
   }
 
-  // async update(id: number, veiculo: VeiculoDto): Promise<GetVeiculoDto> {
-  //   const veiculoCriado = await this.manutencaoDataSource.update(
-  //     id,
-  //     VeiculoDto.toDomain(veiculo),
-  //   );
+  async update(
+    id: number,
+    manutencao: ManutencaoDto,
+  ): Promise<GetManutencaoDto> {
+    const veiculo = await this.validateManutencao(id, manutencao);
 
-  //   return GetVeiculoDto.fromVeiculo(veiculoCriado);
-  // }
+    const manutencaoCriada = await this.manutencaoDataSource.update(
+      id,
+      ManutencaoDto.toDomain(manutencao, veiculo),
+    );
+
+    return GetManutencaoDto.fromDomain(manutencaoCriada);
+  }
 
   async deleteById(id: number) {
     await this.manutencaoDataSource.deleteById(id);

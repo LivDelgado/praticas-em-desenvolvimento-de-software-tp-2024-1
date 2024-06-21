@@ -32,6 +32,18 @@ export class ManutencaoController {
     }
   }
 
+  @Put('/:manutencaoId')
+  async put(
+    @Param('manutencaoId', new ParseIntPipe()) manutencaoId,
+    @Body() manutencao: ManutencaoDto,
+  ): Promise<GetManutencaoDto> {
+    try {
+      return this.manutencaoService.update(manutencaoId, manutencao);
+    } catch (exception) {
+      throw new HttpException(exception.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
   // @Get()
   // @UseFilters(new HttpExceptionFilter())
   // async list(): Promise<GetManutencaoDto[]> {
@@ -50,13 +62,5 @@ export class ManutencaoController {
   // @UseFilters(new HttpExceptionFilter())
   // async remove(@Param('manutencaoId', new ParseIntPipe()) manutencaoId) {
   //   await this.manutencaoService.deleteById(manutencaoId);
-  // }
-
-  // @Put('/:manutencaoId')
-  // async put(
-  //   @Param('manutencaoId', new ParseIntPipe()) manutencaoId,
-  //   @Body() manutencao: ManutencaoDto,
-  // ): Promise<GetManutencaoDto> {
-  //   return this.manutencaoService.update(manutencaoId, manutencao);
   // }
 }
