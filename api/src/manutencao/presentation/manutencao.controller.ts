@@ -44,23 +44,17 @@ export class ManutencaoController {
     }
   }
 
-  // @Get()
-  // @UseFilters(new HttpExceptionFilter())
-  // async list(): Promise<GetManutencaoDto[]> {
-  //   return this.manutencaoService.list();
-  // }
+  @Delete('/:manutencaoId')
+  @UseFilters(new HttpExceptionFilter())
+  async remove(@Param('manutencaoId', new ParseIntPipe()) manutencaoId) {
+    await this.manutencaoService.deleteById(manutencaoId);
+  }
 
-  // @Get('/:manutencaoId')
-  // @UseFilters(new HttpExceptionFilter())
-  // async get(
-  //   @Param('manutencaoId', new ParseIntPipe()) manutencaoId,
-  // ): Promise<GetManutencaoDto> {
-  //   return this.manutencaoService.getById(manutencaoId);
-  // }
-
-  // @Delete('/:manutencaoId')
-  // @UseFilters(new HttpExceptionFilter())
-  // async remove(@Param('manutencaoId', new ParseIntPipe()) manutencaoId) {
-  //   await this.manutencaoService.deleteById(manutencaoId);
-  // }
+  @Get()
+  @UseFilters(new HttpExceptionFilter())
+  async list(
+    @Param('veiculoId', new ParseIntPipe()) veiculoId,
+  ): Promise<GetManutencaoDto[]> {
+    return this.manutencaoService.list(veiculoId);
+  }
 }

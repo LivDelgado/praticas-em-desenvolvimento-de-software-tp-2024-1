@@ -44,6 +44,13 @@ export class ManutencaoService {
     await this.manutencaoDataSource.deleteById(id);
   }
 
+  async list(veiculoId: number): Promise<GetManutencaoDto[]> {
+    const manutencoes = await this.manutencaoDataSource.findByVeiculoId(
+      veiculoId,
+    );
+    return manutencoes.map((it) => GetManutencaoDto.fromDomain(it));
+  }
+
   private async validateManutencao(
     veiculoId: number,
     manutencao: ManutencaoDto,

@@ -29,4 +29,12 @@ export class ManutencaoDataSource {
   async deleteById(id: number) {
     this.ManutencaoRepository.delete({ id: id });
   }
+
+  async findByVeiculoId(veiculoId: number): Promise<Manutencao[]> {
+    const manutencoes = await this.ManutencaoRepository.find({
+      where: { veiculo: { id: veiculoId } },
+    });
+
+    return manutencoes;
+  }
 }
