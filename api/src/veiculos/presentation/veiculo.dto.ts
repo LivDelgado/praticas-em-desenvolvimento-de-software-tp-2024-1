@@ -49,6 +49,7 @@ export class VeiculoDto {
 
 export class GetVeiculoDto extends VeiculoDto {
   id: number;
+  nextManutencaoDate: Date;
 
   static fromVeiculo(veiculo: Veiculo): GetVeiculoDto {
     const veiculoDto = new GetVeiculoDto();
@@ -58,6 +59,15 @@ export class GetVeiculoDto extends VeiculoDto {
     veiculoDto.status = veiculo.status;
     veiculoDto.dataAquisicao = veiculo.dataAquisicao;
     veiculoDto.id = veiculo.id;
+
+    if (veiculo.manutencoes) {
+      const nextManutencao = veiculo.manutencoes.filter(
+        (manutencao) => new Date(manutencao.dataInicio) >= new Date(),
+      )[0];
+
+      if (nextManutencao)
+        veiculoDto.nextManutencaoDate = new Date(nextManutencao.dataInicio);
+    }
 
     return veiculoDto;
   }
