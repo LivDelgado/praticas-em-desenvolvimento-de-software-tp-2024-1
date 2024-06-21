@@ -1,11 +1,12 @@
 import { Injectable, Dependencies } from '@nestjs/common';
 import { getRepositoryToken, InjectRepository } from '@nestjs/typeorm';
 import { Manutencao } from 'src/manutencao/core/manutencao.entity';
+import { IManutencaoRepository } from 'src/manutencao/core/ports/outbound/IManutencaoRepository';
 import { Repository } from 'typeorm';
 
 @Injectable()
 @Dependencies(getRepositoryToken(Manutencao))
-export class ManutencaoDataSource {
+export class ManutencaoDataSource implements IManutencaoRepository {
   constructor(
     @InjectRepository(Manutencao)
     private readonly ManutencaoRepository: Repository<Manutencao>,

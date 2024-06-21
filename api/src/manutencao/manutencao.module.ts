@@ -6,11 +6,15 @@ import { Manutencao } from './core/manutencao.entity';
 import { ManutencaoDataSource } from './adapters/database/manutencao.datasource';
 import { VeiculosModule } from '../veiculos/veiculo.module';
 import { VeiculosDataSource } from '../veiculos/adapters/database/veiculo.datasource';
+import { IManutencaoRepository } from './core/ports/outbound/IManutencaoRepository';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Manutencao]), VeiculosModule],
   providers: [
-    ManutencaoDataSource,
+    {
+      provide: IManutencaoRepository,
+      useClass: ManutencaoDataSource,
+    },
     VeiculosDataSource,
     {
       provide: IManutencaoService,

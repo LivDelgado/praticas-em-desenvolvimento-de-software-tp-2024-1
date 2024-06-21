@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ManutencaoDataSource } from '../adapters/database/manutencao.datasource';
 import {
   GetManutencaoDto,
   ManutencaoDto,
@@ -7,12 +6,12 @@ import {
 import { VeiculosDataSource } from 'src/veiculos/adapters/database/veiculo.datasource';
 import { ManutencaoInvalidaException } from './manutencao.exceptions';
 import { IManutencaoService } from './ports/inbound/IManutencaoService';
+import { IManutencaoRepository } from './ports/outbound/IManutencaoRepository';
 
 @Injectable()
 export class ManutencaoService implements IManutencaoService {
   constructor(
-    @Inject(ManutencaoDataSource)
-    private readonly manutencaoDataSource: ManutencaoDataSource,
+    private readonly manutencaoDataSource: IManutencaoRepository,
     @Inject(VeiculosDataSource)
     private readonly veiculosDataSource: VeiculosDataSource,
   ) {}
