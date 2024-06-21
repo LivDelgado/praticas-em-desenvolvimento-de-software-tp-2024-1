@@ -35,8 +35,16 @@ export class VeiculosDataSource {
     });
   }
 
-  async findById(id: number): Promise<Veiculo> {
-    return this.VeiculoRepository.findOneBy({ id });
+  async findById(id: number, returnManutencao = false): Promise<Veiculo> {
+    const veiculos = await this.VeiculoRepository.find({
+      where: { id: id },
+      relations: {
+        manutencoes: returnManutencao,
+      },
+    });
+
+    if (veiculos) return veiculos[0];
+    return null;
   }
 
   async findAll(): Promise<Veiculo[]> {

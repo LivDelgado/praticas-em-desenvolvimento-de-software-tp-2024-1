@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Post,
@@ -11,17 +13,24 @@ import {
 } from '@nestjs/common';
 import { HttpExceptionFilter } from '../../http-exception.filter';
 import { ManutencaoService } from '../core/manutencao.service';
-// import { GetManutencaoDto, ManutencaoDto } from './manutencao.dto';
+import { GetManutencaoDto, ManutencaoDto } from './manutencao.dto';
 
-@Controller('manutencoes')
+@Controller('veiculos/:veiculoId/manutencoes')
 @UseFilters(new HttpExceptionFilter())
 export class ManutencaoController {
   constructor(private manutencaoService: ManutencaoService) {}
 
-  // @Post()
-  // async post(@Body() manutencao: ManutencaoDto): Promise<GetManutencaoDto> {
-  //   return this.manutencaoService.create(manutencao);
-  // }
+  @Post()
+  async post(
+    @Param('veiculoId', new ParseIntPipe()) veiculoId,
+    @Body() manutencao: ManutencaoDto,
+  ): Promise<GetManutencaoDto> {
+    try {
+      return this.manutencaoService.create(veiculoId, manutencao);
+    } catch (exception) {
+      throw new HttpException(exception.message, HttpStatus.BAD_REQUEST);
+    }
+  }
 
   // @Get()
   // @UseFilters(new HttpExceptionFilter())

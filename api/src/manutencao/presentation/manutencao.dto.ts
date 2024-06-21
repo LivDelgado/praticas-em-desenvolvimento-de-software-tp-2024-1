@@ -1,64 +1,43 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDateString, IsEnum, IsString } from 'class-validator';
-import { StatusVeiculo, Veiculo } from '../core/manutencao.entity';
+import { IsDateString } from 'class-validator';
+import { Manutencao } from '../core/manutencao.entity';
+import { Veiculo } from '../../veiculos/core/veiculo.entity';
 
-export class VeiculoDto {
-  @IsString()
+export class ManutencaoDto {
+  @IsDateString()
   @ApiProperty({
-    description: 'Montadora',
+    description: 'Data de início',
   })
-  montadora: string;
-
-  @IsString()
-  @ApiProperty({
-    description: 'Modelo',
-  })
-  modelo: string;
-
-  @IsString()
-  @ApiProperty({
-    description: 'Ano de fabricação',
-  })
-  ano: string;
+  dataInicio: Date;
 
   @IsDateString()
   @ApiProperty({
-    description: 'Data de Aquisição',
+    description: 'Data de fim',
   })
-  dataAquisicao: Date;
+  dataFim: Date;
 
-  @IsEnum(StatusVeiculo)
-  @ApiProperty({
-    enum: ['DISPONÍVEL', 'EM MANUTENÇÃO', 'ALOCADO'],
-    description: 'Status do veículo',
-    default: StatusVeiculo.DISPONIVEL,
-  })
-  status: StatusVeiculo;
+  static toDomain(
+    manutencaoDto: ManutencaoDto,
+    veiculo: Veiculo | undefined = undefined,
+  ): Manutencao {
+    const manutencao = new Manutencao();
+    manutencao.dataInicio = manutencaoDto.dataInicio;
+    manutencao.dataFim = manutencaoDto.dataFim;
+    manutencao.veiculo = veiculo;
 
-  static toDomain(veiculoDto: VeiculoDto): Veiculo {
-    const veiculo = new Veiculo();
-    veiculo.ano = veiculoDto.ano;
-    veiculo.montadora = veiculoDto.montadora;
-    veiculo.modelo = veiculoDto.modelo;
-    veiculo.status = veiculoDto.status;
-    veiculo.dataAquisicao = veiculoDto.dataAquisicao;
-
-    return veiculo;
+    return manutencao;
   }
 }
 
-export class GetVeiculoDto extends VeiculoDto {
+export class GetManutencaoDto extends ManutencaoDto {
   id: number;
 
-  static fromVeiculo(veiculo: Veiculo): GetVeiculoDto {
-    const veiculoDto = new GetVeiculoDto();
-    veiculoDto.ano = veiculo.ano;
-    veiculoDto.modelo = veiculo.modelo;
-    veiculoDto.montadora = veiculo.montadora;
-    veiculoDto.status = veiculo.status;
-    veiculoDto.dataAquisicao = veiculo.dataAquisicao;
-    veiculoDto.id = veiculo.id;
+  static fromDomain(manutencao: Manutencao): GetManutencaoDto {
+    const manutencaoDto = new GetManutencaoDto();
+    manutencaoDto.dataInicio = manutencao.dataInicio;
+    manutencaoDto.dataFim = manutencao.dataFim;
+    manutencaoDto.id = manutencao.id;
 
-    return veiculoDto;
+    return manutencaoDto;
   }
 }

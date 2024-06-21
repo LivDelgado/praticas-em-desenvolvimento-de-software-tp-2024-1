@@ -10,8 +10,6 @@ const CriacaoVeiculo = () => {
   const [veiculo] = useState<Veiculo>();
 
   const onSubmit = (data: Veiculo) => {
-    console.log(data);
-
     VeiculoApi.add({
       ...data,
       status: veiculo?.status ?? StatusVeiculo.Disponivel
