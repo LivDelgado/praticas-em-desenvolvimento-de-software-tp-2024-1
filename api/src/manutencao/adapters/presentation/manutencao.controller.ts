@@ -29,7 +29,7 @@ export class ManutencaoController {
     try {
       const created = await this.manutencaoService.create(
         veiculoId,
-        manutencao.toDomain(),
+        ManutencaoDto.toDomain(manutencao),
       );
       return GetManutencaoDto.fromDomain(created);
     } catch (exception) {
@@ -48,7 +48,7 @@ export class ManutencaoController {
       const updated = await this.manutencaoService.update(
         veiculoId,
         manutencaoId,
-        manutencao.toDomain(),
+        ManutencaoDto.toDomain(manutencao),
       );
       return GetManutencaoDto.fromDomain(updated);
     } catch (exception) {

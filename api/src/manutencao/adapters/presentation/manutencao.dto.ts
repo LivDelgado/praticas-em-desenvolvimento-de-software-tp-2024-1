@@ -16,10 +16,13 @@ export class ManutencaoDto {
   })
   dataFim: Date;
 
-  toDomain(veiculo: Veiculo | undefined = undefined): Manutencao {
+  static toDomain(
+    manutencaoDto: ManutencaoDto,
+    veiculo: Veiculo | undefined = undefined,
+  ): Manutencao {
     const manutencao = new Manutencao();
-    manutencao.dataInicio = this.dataInicio;
-    manutencao.dataFim = this.dataFim;
+    manutencao.dataInicio = manutencaoDto.dataInicio;
+    manutencao.dataFim = manutencaoDto.dataFim;
     manutencao.veiculo = veiculo;
 
     return manutencao;

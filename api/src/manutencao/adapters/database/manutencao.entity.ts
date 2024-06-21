@@ -1,4 +1,4 @@
-import { Manutencao } from 'src/manutencao/core/manutencao';
+import { Manutencao } from '../../../manutencao/core/manutencao';
 import { Veiculo } from '../../../veiculos/core/veiculo.entity';
 import {
   Entity,
