@@ -29,13 +29,6 @@ export class Veiculo {
   ano: string;
 
   @Column({
-    type: 'enum',
-    enum: StatusVeiculo,
-    default: StatusVeiculo.DISPONIVEL,
-  })
-  status: StatusVeiculo;
-
-  @Column({
     name: 'dataAquisicao',
   })
   dataAquisicao: Date;

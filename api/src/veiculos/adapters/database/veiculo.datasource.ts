@@ -50,10 +50,14 @@ export class VeiculosDataSource {
   async findAll(): Promise<Veiculo[]> {
     const date = new Date();
     return this.VeiculoRepository.createQueryBuilder('veiculo')
-      .innerJoinAndSelect('veiculo.manutencoes', 'manutencao')
-      .where('manutencao.dataInicio <= :date AND manutencao.dataFim >= :date', {
-        date: date,
-      })
+      .leftJoinAndSelect('veiculo.manutencoes', 'manutencao')
+      .where('manutencao.id is null')
+      .orWhere(
+        'manutencao.dataInicio <= :date AND manutencao.dataFim >= :date',
+        {
+          date: date,
+        },
+      )
       .orWhere('manutencao.dataInicio >= :date', { date: date })
       .orderBy('manutencao.dataInicio', 'ASC')
       .getMany();
