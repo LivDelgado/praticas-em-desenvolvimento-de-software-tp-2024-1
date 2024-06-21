@@ -4,6 +4,7 @@ export type Veiculo = {
     modelo: string;
     ano: string;
     dataAquisicao: Date;
+    nextManutencaoDate: Date;
     status: StatusVeiculo;
 }
 

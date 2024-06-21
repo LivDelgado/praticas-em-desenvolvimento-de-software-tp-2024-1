@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { StatusVeiculo, Veiculo } from '../types/veiculo';
+import { Veiculo } from '../types/veiculo';
 import { VeiculoApi } from '../api/veiculo.api';
 import { FormularioVeiculos } from '../components/formularioVeiculos';
 
@@ -28,7 +28,6 @@ const EdicaoVeiculo = () => {
   const onSubmit = (data: Veiculo) => {
     VeiculoApi.update({
       ...data,
-      status: veiculo?.status ?? StatusVeiculo.Disponivel,
       id: Number(veiculoId)
     })
       .then(() => navigate('/veiculos'))

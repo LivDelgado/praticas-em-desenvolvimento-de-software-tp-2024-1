@@ -1,9 +1,11 @@
+import { Manutencao } from '../../manutencao/core/manutencao.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
 
 export enum StatusVeiculo {
@@ -27,18 +29,13 @@ export class Veiculo {
   ano: string;
 
   @Column({
-    type: 'enum',
-    enum: StatusVeiculo,
-    default: StatusVeiculo.DISPONIVEL,
-  })
-  status: StatusVeiculo;
-
-  @Column({
     name: 'dataAquisicao',
-    default: new Date(),
   })
   dataAquisicao: Date;
 
   @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
   @UpdateDateColumn({ name: 'updated_at' }) 'updated_at': Date;
+
+  @OneToMany(() => Manutencao, (manutencao) => manutencao.veiculo)
+  manutencoes: Manutencao[];
 }

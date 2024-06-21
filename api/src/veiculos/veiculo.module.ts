@@ -7,6 +7,6 @@ import { VeiculosDataSource } from './adapters/database/veiculo.datasource';
 @Module({
   imports: [TypeOrmModule.forFeature([Veiculo])],
   providers: [VeiculosService, VeiculosDataSource],
-  exports: [VeiculosService, TypeOrmModule],
+  exports: [VeiculosService, VeiculosDataSource, TypeOrmModule],
 })
 export class VeiculosModule {}

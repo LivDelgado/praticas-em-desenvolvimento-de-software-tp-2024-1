@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { StatusVeiculo, Veiculo } from '../types/veiculo';
+import { Veiculo } from '../types/veiculo';
 import { VeiculoApi } from '../api/veiculo.api';
 import { FormularioVeiculos } from '../components/formularioVeiculos';
 
@@ -10,12 +10,7 @@ const CriacaoVeiculo = () => {
   const [veiculo] = useState<Veiculo>();
 
   const onSubmit = (data: Veiculo) => {
-    console.log(data);
-
-    VeiculoApi.add({
-      ...data,
-      status: veiculo?.status ?? StatusVeiculo.Disponivel
-    })
+    VeiculoApi.add(data)
     .then(() => navigate('/veiculos'))
     .catch((error) => console.error(error));
   }

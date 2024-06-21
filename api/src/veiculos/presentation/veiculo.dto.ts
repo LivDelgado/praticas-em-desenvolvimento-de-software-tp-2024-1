@@ -27,20 +27,11 @@ export class VeiculoDto {
   })
   dataAquisicao: Date;
 
-  @IsEnum(StatusVeiculo)
-  @ApiProperty({
-    enum: ['DISPONÍVEL', 'EM MANUTENÇÃO', 'ALOCADO'],
-    description: 'Status do veículo',
-    default: StatusVeiculo.DISPONIVEL,
-  })
-  status: StatusVeiculo;
-
   static toDomain(veiculoDto: VeiculoDto): Veiculo {
     const veiculo = new Veiculo();
     veiculo.ano = veiculoDto.ano;
     veiculo.montadora = veiculoDto.montadora;
     veiculo.modelo = veiculoDto.modelo;
-    veiculo.status = veiculoDto.status;
     veiculo.dataAquisicao = veiculoDto.dataAquisicao;
 
     return veiculo;
@@ -49,15 +40,39 @@ export class VeiculoDto {
 
 export class GetVeiculoDto extends VeiculoDto {
   id: number;
+  nextManutencaoDate: Date;
+
+  @IsEnum(StatusVeiculo)
+  @ApiProperty({
+    enum: ['DISPONÍVEL', 'EM MANUTENÇÃO', 'ALOCADO'],
+    description: 'Status do veículo',
+    default: StatusVeiculo.DISPONIVEL,
+  })
+  status: StatusVeiculo;
 
   static fromVeiculo(veiculo: Veiculo): GetVeiculoDto {
     const veiculoDto = new GetVeiculoDto();
     veiculoDto.ano = veiculo.ano;
     veiculoDto.modelo = veiculo.modelo;
     veiculoDto.montadora = veiculo.montadora;
-    veiculoDto.status = veiculo.status;
+    veiculoDto.status = StatusVeiculo.DISPONIVEL;
     veiculoDto.dataAquisicao = veiculo.dataAquisicao;
     veiculoDto.id = veiculo.id;
+
+    if (veiculo.manutencoes && veiculo.manutencoes.length) {
+      console.log(veiculo.manutencoes);
+      const today = new Date();
+      if (new Date(veiculo.manutencoes[0].dataInicio) <= today) {
+        veiculoDto.status = StatusVeiculo.EM_MANUTENCAO;
+      }
+
+      const nextManutencao = veiculo.manutencoes.filter(
+        (manutencao) => new Date(manutencao.dataInicio) >= today,
+      )[0];
+
+      if (nextManutencao)
+        veiculoDto.nextManutencaoDate = new Date(nextManutencao.dataInicio);
+    }
 
     return veiculoDto;
   }
