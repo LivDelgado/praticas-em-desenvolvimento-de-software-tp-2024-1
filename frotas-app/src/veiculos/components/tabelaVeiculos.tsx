@@ -43,7 +43,7 @@ function TabelaVeiculos() {
           <tr>
             <th>Nome</th>
             <th>Data de aquisição</th>
-            <th>Motorista</th>
+            {/* <th>Motorista</th> */}
             <th>Próxima manutenção</th>
             <th>Ações</th>
           </tr>
