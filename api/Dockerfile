@@ -1,18 +1,27 @@
-# Installs Node.js image
-FROM node:19.7.0-alpine3.16
+FROM node:19.7.0-alpine3.16 As development
 
-# sets the working directory for any RUN, CMD, COPY command
-# all files we put in the Docker container running the server will be in /usr/src/app (e.g. /usr/src/app/package.json)
 WORKDIR /usr/src/app
 
-# Copies package.json, package-lock.json, tsconfig.json, .env to the root of WORKDIR
-COPY ["package.json", "package-lock.json", "tsconfig.json", ".env", "./"]
+COPY ["package.json", "tsconfig.json", ".env", "./"]
 
-# Copies everything in the src directory to WORKDIR/src
 COPY ./src ./src
 
-# Installs all packages
-RUN npm install
+RUN npm install --only=development
+RUN npm run build
 
-# Runs the dev npm script to build & start the server
+FROM node:19.7.0-alpine3.16 as production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install --only=production
+
+COPY . .
+
+COPY --from=development /usr/src/app/dist ./dist
+
 CMD npm run start:dev
