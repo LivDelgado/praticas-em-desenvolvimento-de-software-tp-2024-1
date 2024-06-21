@@ -1,60 +1,57 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ManutencaoDataSource } from '../adapters/database/manutencao.datasource';
-import {
-  GetManutencaoDto,
-  ManutencaoDto,
-} from '../presentation/manutencao.dto';
 import { VeiculosDataSource } from 'src/veiculos/adapters/database/veiculo.datasource';
 import { ManutencaoInvalidaException } from './manutencao.exceptions';
+import { IManutencaoService } from './ports/inbound/IManutencaoService';
+import { IManutencaoRepository } from './ports/outbound/IManutencaoRepository';
+import { Manutencao } from './manutencao';
 
 @Injectable()
-export class ManutencaoService {
+export class ManutencaoService implements IManutencaoService {
   constructor(
-    @Inject(ManutencaoDataSource)
-    private readonly manutencaoDataSource: ManutencaoDataSource,
+    private readonly manutencaoDataSource: IManutencaoRepository,
     @Inject(VeiculosDataSource)
     private readonly veiculosDataSource: VeiculosDataSource,
   ) {}
 
-  async create(veiculoId: number, manutencao: ManutencaoDto) {
+  async create(veiculoId: number, manutencao: Manutencao): Promise<Manutencao> {
     const veiculo = await this.validateManutencao(veiculoId, manutencao);
 
-    const manutencaoCriada = await this.manutencaoDataSource.save(
-      ManutencaoDto.toDomain(manutencao, veiculo),
-    );
+    manutencao.veiculo = veiculo;
+    const manutencaoCriada = await this.manutencaoDataSource.save(manutencao);
 
-    return GetManutencaoDto.fromDomain(manutencaoCriada);
+    return manutencaoCriada;
   }
 
   async update(
     veiculoId: number,
     id: number,
-    manutencao: ManutencaoDto,
-  ): Promise<GetManutencaoDto> {
+    manutencao: Manutencao,
+  ): Promise<Manutencao> {
     const veiculo = await this.validateManutencao(veiculoId, manutencao, id);
 
+    manutencao.veiculo = veiculo;
     const manutencaoCriada = await this.manutencaoDataSource.update(
       id,
-      ManutencaoDto.toDomain(manutencao, veiculo),
+      manutencao,
     );
 
-    return GetManutencaoDto.fromDomain(manutencaoCriada);
+    return manutencaoCriada;
   }
 
   async deleteById(id: number) {
     await this.manutencaoDataSource.deleteById(id);
   }
 
-  async list(veiculoId: number): Promise<GetManutencaoDto[]> {
+  async list(veiculoId: number): Promise<Manutencao[]> {
     const manutencoes = await this.manutencaoDataSource.findByVeiculoId(
       veiculoId,
     );
-    return manutencoes.map((it) => GetManutencaoDto.fromDomain(it));
+    return manutencoes;
   }
 
   private async validateManutencao(
     veiculoId: number,
-    manutencao: ManutencaoDto,
+    manutencao: Manutencao,
     manutencaoId: number | undefined = undefined,
   ) {
     const veiculo = await this.veiculosDataSource.findById(veiculoId, true);

@@ -1,29 +1,32 @@
 import { Injectable, Dependencies } from '@nestjs/common';
 import { getRepositoryToken, InjectRepository } from '@nestjs/typeorm';
-import { Manutencao } from 'src/manutencao/core/manutencao.entity';
+import { ManutencaoEntity } from './manutencao.entity';
+import { IManutencaoRepository } from 'src/manutencao/core/ports/outbound/IManutencaoRepository';
 import { Repository } from 'typeorm';
+import { Manutencao } from 'src/manutencao/core/manutencao';
 
 @Injectable()
-@Dependencies(getRepositoryToken(Manutencao))
-export class ManutencaoDataSource {
+@Dependencies(getRepositoryToken(ManutencaoEntity))
+export class ManutencaoDataSource implements IManutencaoRepository {
   constructor(
-    @InjectRepository(Manutencao)
-    private readonly ManutencaoRepository: Repository<Manutencao>,
+    @InjectRepository(ManutencaoEntity)
+    private readonly ManutencaoRepository: Repository<ManutencaoEntity>,
   ) {}
 
-  async save(manutencao: Partial<Manutencao>): Promise<Manutencao> {
-    const newManutencao = this.ManutencaoRepository.create(manutencao);
-    return await this.ManutencaoRepository.save(newManutencao);
+  async save(manutencao: Manutencao): Promise<Manutencao> {
+    const newManutencao = this.ManutencaoRepository.create(
+      ManutencaoEntity.toEntity(manutencao),
+    );
+    const created = await this.ManutencaoRepository.save(newManutencao);
+    return created.toDomain();
   }
 
-  async update(
-    id: number,
-    manutencao: Partial<Manutencao>,
-  ): Promise<Manutencao> {
-    return await this.ManutencaoRepository.save({
-      id: id,
-      ...manutencao,
+  async update(id: number, manutencao: Manutencao): Promise<Manutencao> {
+    manutencao.id = id;
+    const updated = await this.ManutencaoRepository.save({
+      ...ManutencaoEntity.toEntity(manutencao),
     });
+    return updated.toDomain();
   }
 
   async deleteById(id: number) {
@@ -35,6 +38,6 @@ export class ManutencaoDataSource {
       where: { veiculo: { id: veiculoId } },
     });
 
-    return manutencoes;
+    return manutencoes.map((manutencao) => manutencao.toDomain());
   }
 }
