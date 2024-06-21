@@ -14,7 +14,6 @@ const EdicaoVeiculo = () => {
     const fetchVeiculo = async () => {
       try {
         const fetched = await VeiculoApi.get(Number(veiculoId));
-        // new Date().toISOString().substring(0, 10)
         fetched.dataAquisicao = new Date(fetched.dataAquisicao);
         setVeiculo(fetched);
       } catch (error) {
