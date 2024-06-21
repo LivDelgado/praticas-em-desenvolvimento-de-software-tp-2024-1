@@ -3,12 +3,13 @@ import { ManutencaoDataSource } from '../adapters/database/manutencao.datasource
 import {
   GetManutencaoDto,
   ManutencaoDto,
-} from '../presentation/manutencao.dto';
+} from '../adapters/presentation/manutencao.dto';
 import { VeiculosDataSource } from 'src/veiculos/adapters/database/veiculo.datasource';
 import { ManutencaoInvalidaException } from './manutencao.exceptions';
+import { IManutencaoService } from './ports/inbound/IManutencaoService';
 
 @Injectable()
-export class ManutencaoService {
+export class ManutencaoService implements IManutencaoService {
   constructor(
     @Inject(ManutencaoDataSource)
     private readonly manutencaoDataSource: ManutencaoDataSource,

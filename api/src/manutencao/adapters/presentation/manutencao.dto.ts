@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString } from 'class-validator';
-import { Manutencao } from '../core/manutencao.entity';
-import { Veiculo } from '../../veiculos/core/veiculo.entity';
+import { Manutencao } from '../../core/manutencao.entity';
+import { Veiculo } from '../../../veiculos/core/veiculo.entity';
 
 export class ManutencaoDto {
   @IsDateString()

@@ -11,14 +11,14 @@ import {
   Put,
   UseFilters,
 } from '@nestjs/common';
-import { HttpExceptionFilter } from '../../http-exception.filter';
-import { ManutencaoService } from '../core/manutencao.service';
+import { HttpExceptionFilter } from '../../../http-exception.filter';
 import { GetManutencaoDto, ManutencaoDto } from './manutencao.dto';
+import { IManutencaoService } from 'src/manutencao/core/ports/inbound/IManutencaoService';
 
 @Controller('veiculos/:veiculoId/manutencoes')
 @UseFilters(new HttpExceptionFilter())
 export class ManutencaoController {
-  constructor(private manutencaoService: ManutencaoService) {}
+  constructor(private manutencaoService: IManutencaoService) {}
 
   @Post()
   @UseFilters(new HttpExceptionFilter())
