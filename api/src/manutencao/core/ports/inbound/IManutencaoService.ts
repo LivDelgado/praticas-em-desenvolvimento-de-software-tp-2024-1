@@ -1,18 +1,15 @@
-import {
-  GetManutencaoDto,
-  ManutencaoDto,
-} from 'src/manutencao/adapters/presentation/manutencao.dto';
+import { Manutencao } from '../../manutencao';
 
 export abstract class IManutencaoService {
   abstract create(
     veiculoId: number,
-    manutencao: ManutencaoDto,
-  ): Promise<GetManutencaoDto>;
+    manutencao: Manutencao,
+  ): Promise<Manutencao>;
   abstract update(
     veiculoId: number,
     id: number,
-    manutencao: ManutencaoDto,
-  ): Promise<GetManutencaoDto>;
+    manutencao: Manutencao,
+  ): Promise<Manutencao>;
   abstract deleteById(id: number);
-  abstract list(veiculoId: number): Promise<GetManutencaoDto[]>;
+  abstract list(veiculoId: number): Promise<Manutencao[]>;
 }

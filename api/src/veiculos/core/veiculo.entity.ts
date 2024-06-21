@@ -1,4 +1,4 @@
-import { Manutencao } from '../../manutencao/core/manutencao.entity';
+import { ManutencaoEntity } from '../../manutencao/adapters/database/manutencao.entity';
 import {
   Entity,
   Column,
@@ -36,6 +36,6 @@ export class Veiculo {
   @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
   @UpdateDateColumn({ name: 'updated_at' }) 'updated_at': Date;
 
-  @OneToMany(() => Manutencao, (manutencao) => manutencao.veiculo)
-  manutencoes: Manutencao[];
+  @OneToMany(() => ManutencaoEntity, (manutencao) => manutencao.veiculo)
+  manutencoes: ManutencaoEntity[];
 }

@@ -27,7 +27,11 @@ export class ManutencaoController {
     @Body() manutencao: ManutencaoDto,
   ): Promise<GetManutencaoDto> {
     try {
-      return await this.manutencaoService.create(veiculoId, manutencao);
+      const created = await this.manutencaoService.create(
+        veiculoId,
+        manutencao.toDomain(),
+      );
+      return GetManutencaoDto.fromDomain(created);
     } catch (exception) {
       throw new HttpException(exception.message, HttpStatus.BAD_REQUEST);
     }
@@ -41,11 +45,12 @@ export class ManutencaoController {
     @Body() manutencao: ManutencaoDto,
   ): Promise<GetManutencaoDto> {
     try {
-      return await this.manutencaoService.update(
+      const updated = await this.manutencaoService.update(
         veiculoId,
         manutencaoId,
-        manutencao,
+        manutencao.toDomain(),
       );
+      return GetManutencaoDto.fromDomain(updated);
     } catch (exception) {
       throw new HttpException(exception.message, HttpStatus.BAD_REQUEST);
     }
@@ -62,6 +67,9 @@ export class ManutencaoController {
   async list(
     @Param('veiculoId', new ParseIntPipe()) veiculoId,
   ): Promise<GetManutencaoDto[]> {
-    return this.manutencaoService.list(veiculoId);
+    const manutencoes = await this.manutencaoService.list(veiculoId);
+    return manutencoes.map((manutencao) =>
+      GetManutencaoDto.fromDomain(manutencao),
+    );
   }
 }

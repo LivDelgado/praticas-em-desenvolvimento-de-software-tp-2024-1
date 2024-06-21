@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString } from 'class-validator';
-import { Manutencao } from '../../core/manutencao.entity';
 import { Veiculo } from '../../../veiculos/core/veiculo.entity';
+import { Manutencao } from 'src/manutencao/core/manutencao';
 
 export class ManutencaoDto {
   @IsDateString()
@@ -16,13 +16,10 @@ export class ManutencaoDto {
   })
   dataFim: Date;
 
-  static toDomain(
-    manutencaoDto: ManutencaoDto,
-    veiculo: Veiculo | undefined = undefined,
-  ): Manutencao {
+  toDomain(veiculo: Veiculo | undefined = undefined): Manutencao {
     const manutencao = new Manutencao();
-    manutencao.dataInicio = manutencaoDto.dataInicio;
-    manutencao.dataFim = manutencaoDto.dataFim;
+    manutencao.dataInicio = this.dataInicio;
+    manutencao.dataFim = this.dataFim;
     manutencao.veiculo = veiculo;
 
     return manutencao;
