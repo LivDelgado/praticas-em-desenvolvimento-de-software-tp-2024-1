@@ -54,7 +54,7 @@ function TabelaVeiculos() {
               <td>{veiculo.montadora + veiculo.modelo}</td>
               <td>{new Date(veiculo.dataAquisicao).toISOString().slice(0, 10)}</td>
               {/* <td>{veiculo.driver}</td> */}
-              {/* <td>{veiculo.nextMaintenance}</td> */}
+              <td>{veiculo.nextManutencaoDate ? new Date(veiculo.nextManutencaoDate).toISOString().slice(0, 10) : null}</td>
               <td>
                 <button onClick={() => handleEdit(veiculo)}>Editar</button>
                 <button onClick={() => handleRemove(veiculo)}>Remover</button>
