@@ -21,25 +21,31 @@ export class ManutencaoController {
   constructor(private manutencaoService: ManutencaoService) {}
 
   @Post()
+  @UseFilters(new HttpExceptionFilter())
   async post(
     @Param('veiculoId', new ParseIntPipe()) veiculoId,
     @Body() manutencao: ManutencaoDto,
   ): Promise<GetManutencaoDto> {
     try {
-      return this.manutencaoService.create(veiculoId, manutencao);
+      return await this.manutencaoService.create(veiculoId, manutencao);
     } catch (exception) {
       throw new HttpException(exception.message, HttpStatus.BAD_REQUEST);
     }
   }
 
   @Put('/:manutencaoId')
+  @UseFilters(new HttpExceptionFilter())
   async put(
     @Param('veiculoId', new ParseIntPipe()) veiculoId,
     @Param('manutencaoId', new ParseIntPipe()) manutencaoId,
     @Body() manutencao: ManutencaoDto,
   ): Promise<GetManutencaoDto> {
     try {
-      return this.manutencaoService.update(veiculoId, manutencaoId, manutencao);
+      return await this.manutencaoService.update(
+        veiculoId,
+        manutencaoId,
+        manutencao,
+      );
     } catch (exception) {
       throw new HttpException(exception.message, HttpStatus.BAD_REQUEST);
     }
