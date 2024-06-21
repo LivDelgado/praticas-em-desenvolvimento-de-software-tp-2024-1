@@ -67,8 +67,8 @@ coverage/lcov-report/index.html
 
 --- 
 ## Architecture 
-The project uses NestJS and follows a hexagonal architecture. Inside each module, we have divised the code into tree layers
+The project uses NestJS and adheres to a hexagonal architecture. Within each module, the code is organized into three layers:
 
--  Adapters, where we isolate the interactions of the code with external services, like the database.
--  Core, where we keep the bussiness logic(services) and entites.
--  Presentation, where we keep our controllers and dtos for the module.
+-  Adapters, where we isolate the interactions of the code with external services, such as the database.
+-  Core, which contains the bussiness logic(services) and entities.
+-  Presentation, where we keep our ccontrollers and DTOs (Data Transfer Objects) for the module.
