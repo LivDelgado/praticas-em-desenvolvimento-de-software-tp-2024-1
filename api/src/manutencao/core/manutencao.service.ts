@@ -17,29 +17,7 @@ export class ManutencaoService {
   ) {}
 
   async create(veiculoId: number, manutencao: ManutencaoDto) {
-    const veiculo = await this.veiculosDataSource.findById(veiculoId, true);
-    if (!veiculo) {
-      throw new ManutencaoInvalidaException(
-        'Não é possível inserir uma manutenção para um veículo inexistente.',
-      );
-    }
-
-    const manutencoes = veiculo?.manutencoes;
-    if (
-      manutencoes.some(
-        (it) =>
-          (it.dataInicio <= manutencao.dataFim &&
-            manutencao.dataFim <= it.dataFim) ||
-          (it.dataInicio <= manutencao.dataInicio &&
-            manutencao.dataInicio <= it.dataFim) ||
-          (it.dataInicio >= manutencao.dataInicio &&
-            manutencao.dataFim >= it.dataFim),
-      )
-    ) {
-      throw new ManutencaoInvalidaException(
-        'Não é possível inserir uma manutenção que conflite com uma já existente.',
-      );
-    }
+    const veiculo = await this.validateManutencao(veiculoId, manutencao);
 
     const manutencaoCriada = await this.manutencaoDataSource.save(
       ManutencaoDto.toDomain(manutencao, veiculo),
@@ -59,5 +37,38 @@ export class ManutencaoService {
 
   async deleteById(id: number) {
     await this.manutencaoDataSource.deleteById(id);
+  }
+
+  private async validateManutencao(
+    veiculoId: number,
+    manutencao: ManutencaoDto,
+  ) {
+    const veiculo = await this.veiculosDataSource.findById(veiculoId, true);
+    if (!veiculo) {
+      throw new ManutencaoInvalidaException(
+        'Não é possível inserir uma manutenção para um veículo inexistente.',
+      );
+    }
+
+    const manutencoes = veiculo?.manutencoes;
+    if (manutencao.dataFim <= manutencao.dataInicio) {
+      throw new ManutencaoInvalidaException('Intervalo inválido');
+    }
+
+    if (
+      manutencoes.some(
+        (it) =>
+          !(
+            new Date(manutencao.dataInicio) > new Date(it.dataFim) ||
+            new Date(manutencao.dataFim) < new Date(it.dataInicio)
+          ),
+      )
+    ) {
+      throw new ManutencaoInvalidaException(
+        'Não é possível inserir uma manutenção que conflite com uma já existente.',
+      );
+    }
+
+    return veiculo;
   }
 }
