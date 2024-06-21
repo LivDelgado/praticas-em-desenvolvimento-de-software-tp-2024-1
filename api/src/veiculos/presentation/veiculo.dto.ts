@@ -60,7 +60,6 @@ export class GetVeiculoDto extends VeiculoDto {
     veiculoDto.id = veiculo.id;
 
     if (veiculo.manutencoes && veiculo.manutencoes.length) {
-      console.log(veiculo.manutencoes);
       const today = new Date();
       if (new Date(veiculo.manutencoes[0].dataInicio) <= today) {
         veiculoDto.status = StatusVeiculo.EM_MANUTENCAO;

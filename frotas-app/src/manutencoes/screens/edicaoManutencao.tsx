@@ -33,7 +33,9 @@ const EdicaoManutencao = () => {
       id: Number(manutencaoId)
     })
       .then(() => navigate(`/veiculos/${veiculoId}/manutencao`))
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        window.alert(error.response.data);
+      });
   }
 
   return (

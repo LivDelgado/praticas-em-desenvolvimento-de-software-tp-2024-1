@@ -54,7 +54,7 @@ function TabelaManutencao() {
               <td>{new Date(manutencao.dataFim).toISOString().slice(0, 10)}</td>
               <td>
                 <button onClick={() => handleEdit(manutencao)}>Editar</button>
-                <button onClick={() => handleRemove(manutencao)}>Remover</button>
+                {(new Date(manutencao.dataInicio) > new Date()) && <button onClick={() => handleRemove(manutencao)}>Remover</button>}
               </td>
             </tr>
           ))}
