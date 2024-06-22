@@ -1,4 +1,4 @@
-import { VeiculoEntity } from 'src/veiculos/adapters/database/veiculo.entity';
+import { VeiculoEntity } from '../../../veiculos/adapters/database/veiculo.entity';
 import { Manutencao } from '../../../manutencao/core/manutencao';
 import {
   Entity,

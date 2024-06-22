@@ -1,5 +1,5 @@
-import { ManutencaoEntity } from 'src/manutencao/adapters/database/manutencao.entity';
-import { Veiculo } from 'src/veiculos/core/veiculo';
+import { ManutencaoEntity } from '../../../manutencao/adapters/database/manutencao.entity';
+import { Veiculo } from '../../core/veiculo';
 import {
   Entity,
   Column,
