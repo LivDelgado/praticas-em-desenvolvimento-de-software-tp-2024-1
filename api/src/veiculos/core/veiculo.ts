@@ -38,6 +38,3 @@ export enum StatusVeiculo {
   EM_MANUTENCAO = 'EM MANUTENÇÃO',
   ALOCADO = 'ALOCADO',
 }
-function getNextManutencaoDate() {
-  throw new Error('Function not implemented.');
-}
