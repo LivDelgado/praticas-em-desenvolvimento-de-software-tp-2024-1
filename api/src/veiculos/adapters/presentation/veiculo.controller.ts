@@ -9,8 +9,8 @@ import {
   Put,
   UseFilters,
 } from '@nestjs/common';
-import { HttpExceptionFilter } from '../../http-exception.filter';
-import { VeiculosService } from '../core/veiculo.service';
+import { HttpExceptionFilter } from '../../../http-exception.filter';
+import { VeiculosService } from '../../core/veiculo.service';
 import { GetVeiculoDto, VeiculoDto } from './veiculo.dto';
 
 @Controller('veiculos')

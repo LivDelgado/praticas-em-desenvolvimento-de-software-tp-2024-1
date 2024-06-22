@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { VeiculosDataSource } from '../adapters/database/veiculo.datasource';
-import { GetVeiculoDto, VeiculoDto } from '../presentation/veiculo.dto';
+import { GetVeiculoDto, VeiculoDto } from '../adapters/presentation/veiculo.dto';
 
 @Injectable()
 export class VeiculosService {

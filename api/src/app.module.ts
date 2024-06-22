@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { VeiculosModule } from './veiculos/veiculo.module';
 import { Veiculo } from './veiculos/core/veiculo.entity';
-import { VeiculoController } from './veiculos/presentation/veiculo.controller';
+import { VeiculoController } from './veiculos/adapters/presentation/veiculo.controller';
 import { VeiculosDataSource } from './veiculos/adapters/database/veiculo.datasource';
 import { ManutencaoModule } from './manutencao/manutencao.module';
 import { ManutencaoController } from './manutencao/adapters/presentation/manutencao.controller';
