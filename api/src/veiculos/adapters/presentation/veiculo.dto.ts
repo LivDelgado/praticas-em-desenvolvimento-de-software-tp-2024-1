@@ -29,6 +29,7 @@ export class VeiculoDto {
 
   static toDomain(veiculoDto: VeiculoDto): Veiculo {
     const veiculo = new Veiculo();
+
     veiculo.ano = veiculoDto.ano;
     veiculo.montadora = veiculoDto.montadora;
     veiculo.modelo = veiculoDto.modelo;
@@ -52,6 +53,7 @@ export class GetVeiculoDto extends VeiculoDto {
 
   static fromDomain(veiculo: Veiculo): GetVeiculoDto {
     const veiculoDto = new GetVeiculoDto();
+
     veiculoDto.id = veiculo.id;
     veiculoDto.montadora = veiculo.montadora;
     veiculoDto.modelo = veiculo.modelo;

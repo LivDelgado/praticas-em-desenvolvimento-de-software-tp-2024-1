@@ -24,7 +24,7 @@ export class ManutencaoDto {
 
     manutencao.dataInicio = manutencaoDto.dataInicio;
     manutencao.dataFim = manutencaoDto.dataFim;
-    manutencao.veiculo = VeiculoDto.toDomain(veiculo);
+    manutencao.veiculo = veiculo ? VeiculoDto.toDomain(veiculo) : undefined;
 
     return manutencao;
   }
