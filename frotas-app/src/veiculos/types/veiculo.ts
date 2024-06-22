@@ -1,15 +1,17 @@
+import { Dayjs } from "dayjs";
+
 export type Veiculo = {
     id: number;
     montadora: string;
     modelo: string;
     ano: string;
-    dataAquisicao: Date;
+    dataAquisicao: Dayjs;
     nextManutencaoDate: Date;
     status: StatusVeiculo;
 }
 
 export enum StatusVeiculo {
-    Disponivel = 'DISPONÍVEL', 
+    Disponivel = 'DISPONÍVEL',
     EmManutencao = 'EM MANUTENÇÃO',
     Alocado = 'ALOCADO'
 }
