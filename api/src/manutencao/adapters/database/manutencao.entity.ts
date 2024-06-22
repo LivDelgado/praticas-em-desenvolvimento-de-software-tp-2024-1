@@ -1,5 +1,5 @@
+import { VeiculoEntity } from '../../../veiculos/adapters/database/veiculo.entity';
 import { Manutencao } from '../../../manutencao/core/manutencao';
-import { Veiculo } from '../../../veiculos/core/veiculo.entity';
 import {
   Entity,
   Column,
@@ -24,8 +24,8 @@ export class ManutencaoEntity {
   })
   dataFim: Date;
 
-  @ManyToOne(() => Veiculo, (veiculo) => veiculo.manutencoes)
-  veiculo: Veiculo;
+  @ManyToOne(() => VeiculoEntity, (veiculo) => veiculo.manutencoes)
+  veiculo: VeiculoEntity;
 
   @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
   @UpdateDateColumn({ name: 'updated_at' }) 'updated_at': Date;
@@ -36,17 +36,20 @@ export class ManutencaoEntity {
     domain.id = this.id;
     domain.dataInicio = this.dataInicio;
     domain.dataFim = this.dataFim;
-    domain.veiculo = this.veiculo;
+    domain.veiculo = this.veiculo?.toDomain();
 
     return domain;
   }
 
-  static toEntity(manutencao: Manutencao): ManutencaoEntity {
+  static fromDomain(manutencao: Manutencao): ManutencaoEntity {
     const entity = new ManutencaoEntity();
+
     entity.id = manutencao.id;
     entity.dataInicio = manutencao.dataInicio;
     entity.dataFim = manutencao.dataFim;
-    entity.veiculo = manutencao.veiculo;
+    entity.veiculo = manutencao.veiculo
+      ? VeiculoEntity.fromDomain(manutencao.veiculo)
+      : undefined;
 
     return entity;
   }

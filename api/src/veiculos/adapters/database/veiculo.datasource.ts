@@ -1,26 +1,32 @@
 import { Injectable, Dependencies } from '@nestjs/common';
 import { getRepositoryToken, InjectRepository } from '@nestjs/typeorm';
-import { Veiculo } from 'src/veiculos/core/veiculo.entity';
 import { Repository } from 'typeorm';
+import { VeiculoEntity } from './veiculo.entity';
+import { IVeiculoRepository } from 'src/veiculos/core/ports/outbound/IVeiculoRepository';
+import { Veiculo } from 'src/veiculos/core/veiculo';
 
 @Injectable()
-@Dependencies(getRepositoryToken(Veiculo))
-export class VeiculosDataSource {
+@Dependencies(getRepositoryToken(VeiculoEntity))
+export class VeiculosDataSource implements IVeiculoRepository {
   constructor(
-    @InjectRepository(Veiculo)
-    private readonly VeiculoRepository: Repository<Veiculo>,
+    @InjectRepository(VeiculoEntity)
+    private readonly veiculoRepository: Repository<VeiculoEntity>,
   ) {}
 
-  async save(veiculo: Partial<Veiculo>): Promise<Veiculo> {
-    const newVeiculo = this.VeiculoRepository.create(veiculo);
-    return await this.VeiculoRepository.save(newVeiculo);
+  async save(veiculo: Veiculo): Promise<Veiculo> {
+    const newVeiculo = this.veiculoRepository.create(
+      VeiculoEntity.fromDomain(veiculo),
+    );
+    const created = await this.veiculoRepository.save(newVeiculo);
+    return created.toDomain();
   }
 
-  async update(id: number, veiculo: Partial<Veiculo>): Promise<Veiculo> {
-    return await this.VeiculoRepository.save({
-      id: id,
-      ...veiculo,
-    });
+  async update(id: number, veiculo: Veiculo): Promise<Veiculo> {
+    veiculo.id = id;
+    const updated = await this.veiculoRepository.save(
+      VeiculoEntity.fromDomain(veiculo),
+    );
+    return updated.toDomain();
   }
 
   async findOne(
@@ -28,29 +34,32 @@ export class VeiculosDataSource {
     modelo: string,
     ano: string,
   ): Promise<Veiculo> {
-    return this.VeiculoRepository.findOneBy({
+    const veiculo = await this.veiculoRepository.findOneBy({
       montadora: montadora,
       modelo: modelo,
       ano: ano,
     });
+
+    return veiculo.toDomain();
   }
 
   async findById(id: number, returnManutencao = false): Promise<Veiculo> {
-    const veiculos = await this.VeiculoRepository.find({
+    const veiculos = await this.veiculoRepository.find({
       where: { id: id },
       relations: {
         manutencoes: returnManutencao,
       },
     });
 
-    if (veiculos) return veiculos[0];
+    if (veiculos) return veiculos[0].toDomain();
     return null;
   }
 
   async findAll(): Promise<Veiculo[]> {
     const date = new Date();
-    return this.VeiculoRepository.createQueryBuilder('veiculo')
-      .leftJoinAndSelect('veiculo.manutencoes', 'manutencao')
+    const veiculos = await this.veiculoRepository
+      .createQueryBuilder('VeiculoEntity')
+      .leftJoinAndSelect('VeiculoEntity.manutencoes', 'manutencao')
       .where('manutencao.id is null')
       .orWhere(
         'manutencao.dataInicio <= :date AND manutencao.dataFim >= :date',
@@ -61,9 +70,11 @@ export class VeiculosDataSource {
       .orWhere('manutencao.dataInicio >= :date', { date: date })
       .orderBy('manutencao.dataInicio', 'ASC')
       .getMany();
+
+    return veiculos.map((it) => it.toDomain());
   }
 
   async deleteById(id: number) {
-    this.VeiculoRepository.delete({ id: id });
+    this.veiculoRepository.delete({ id: id });
   }
 }

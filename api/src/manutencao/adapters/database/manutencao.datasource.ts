@@ -15,7 +15,7 @@ export class ManutencaoDataSource implements IManutencaoRepository {
 
   async save(manutencao: Manutencao): Promise<Manutencao> {
     const newManutencao = this.ManutencaoRepository.create(
-      ManutencaoEntity.toEntity(manutencao),
+      ManutencaoEntity.fromDomain(manutencao),
     );
     const created = await this.ManutencaoRepository.save(newManutencao);
     return created.toDomain();
@@ -23,9 +23,9 @@ export class ManutencaoDataSource implements IManutencaoRepository {
 
   async update(id: number, manutencao: Manutencao): Promise<Manutencao> {
     manutencao.id = id;
-    const updated = await this.ManutencaoRepository.save({
-      ...ManutencaoEntity.toEntity(manutencao),
-    });
+    const updated = await this.ManutencaoRepository.save(
+      ManutencaoEntity.fromDomain(manutencao),
+    );
     return updated.toDomain();
   }
 
