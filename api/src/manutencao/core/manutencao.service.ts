@@ -17,9 +17,8 @@ export class ManutencaoService implements IManutencaoService {
     const veiculo = await this.validateManutencao(veiculoId, manutencao);
 
     manutencao.veiculo = veiculo;
-    const manutencaoCriada = await this.manutencaoDataSource.save(manutencao);
 
-    return manutencaoCriada;
+    return this.manutencaoDataSource.save(manutencao);
   }
 
   async update(
@@ -30,12 +29,8 @@ export class ManutencaoService implements IManutencaoService {
     const veiculo = await this.validateManutencao(veiculoId, manutencao, id);
 
     manutencao.veiculo = veiculo;
-    const manutencaoCriada = await this.manutencaoDataSource.update(
-      id,
-      manutencao,
-    );
 
-    return manutencaoCriada;
+    return this.manutencaoDataSource.update(id, manutencao);
   }
 
   async deleteById(id: number) {
@@ -43,10 +38,7 @@ export class ManutencaoService implements IManutencaoService {
   }
 
   async list(veiculoId: number): Promise<Manutencao[]> {
-    const manutencoes = await this.manutencaoDataSource.findByVeiculoId(
-      veiculoId,
-    );
-    return manutencoes;
+    return this.manutencaoDataSource.findByVeiculoId(veiculoId);
   }
 
   private async validateManutencao(
