@@ -1,53 +1,34 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { VeiculosDataSource } from '../adapters/database/veiculo.datasource';
-import { GetVeiculoDto, VeiculoDto } from '../adapters/presentation/veiculo.dto';
+import { Injectable } from '@nestjs/common';
+import { Veiculo } from './veiculo';
+import { IVeiculoService } from './ports/inbound/IVeiculoService';
+import { IVeiculoRepository } from './ports/outbound/IVeiculoRepository';
 
 @Injectable()
-export class VeiculosService {
-  constructor(
-    @Inject(VeiculosDataSource)
-    private readonly veiculosDataSource: VeiculosDataSource,
-  ) {}
+export class VeiculosService implements IVeiculoService {
+  constructor(private readonly veiculosDataSource: IVeiculoRepository) {}
 
-  async findOne(montadora: string, modelo: string, ano: string) {
-    const veiculo = await this.veiculosDataSource.findOne(
-      montadora,
-      modelo,
-      ano,
-    );
-
-    if (veiculo) {
-      return GetVeiculoDto.fromVeiculo(veiculo);
-    }
-
-    return null;
+  async findOne(
+    montadora: string,
+    modelo: string,
+    ano: string,
+  ): Promise<Veiculo> {
+    return this.veiculosDataSource.findOne(montadora, modelo, ano);
   }
 
-  async create(veiculo: VeiculoDto): Promise<GetVeiculoDto> {
-    const veiculoCriado = await this.veiculosDataSource.save(
-      VeiculoDto.toDomain(veiculo),
-    );
-
-    return GetVeiculoDto.fromVeiculo(veiculoCriado);
+  async create(veiculo: Veiculo): Promise<Veiculo> {
+    return await this.veiculosDataSource.save(veiculo);
   }
 
-  async update(id: number, veiculo: VeiculoDto): Promise<GetVeiculoDto> {
-    const veiculoCriado = await this.veiculosDataSource.update(
-      id,
-      VeiculoDto.toDomain(veiculo),
-    );
-
-    return GetVeiculoDto.fromVeiculo(veiculoCriado);
+  async update(id: number, veiculo: Veiculo): Promise<Veiculo> {
+    return this.veiculosDataSource.update(id, veiculo);
   }
 
-  async list(): Promise<GetVeiculoDto[]> {
-    const veiculos = await this.veiculosDataSource.findAll();
-    return veiculos.map((it) => GetVeiculoDto.fromVeiculo(it));
+  async list(): Promise<Veiculo[]> {
+    return this.veiculosDataSource.findAll();
   }
 
-  async getById(id: number): Promise<GetVeiculoDto> {
-    const veiculo = await this.veiculosDataSource.findById(id);
-    return GetVeiculoDto.fromVeiculo(veiculo);
+  async getById(id: number): Promise<Veiculo> {
+    return this.veiculosDataSource.findById(id, false);
   }
 
   async deleteById(id: number) {

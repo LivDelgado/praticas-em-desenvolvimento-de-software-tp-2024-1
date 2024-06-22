@@ -10,23 +10,24 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { HttpExceptionFilter } from '../../../http-exception.filter';
-import { VeiculosService } from '../../core/veiculo.service';
 import { GetVeiculoDto, VeiculoDto } from './veiculo.dto';
+import { IVeiculoService } from 'src/veiculos/core/ports/inbound/IVeiculoService';
 
 @Controller('veiculos')
 @UseFilters(new HttpExceptionFilter())
 export class VeiculoController {
-  constructor(private veiculoService: VeiculosService) {}
+  constructor(private veiculoService: IVeiculoService) {}
 
-  @Post()
-  async post(@Body() veiculo: VeiculoDto): Promise<GetVeiculoDto> {
-    return this.veiculoService.create(veiculo);
-  }
-
-  @Get()
-  @UseFilters(new HttpExceptionFilter())
-  async list(): Promise<GetVeiculoDto[]> {
-    return this.veiculoService.list();
+  @Put('/:veiculoId')
+  async put(
+    @Param('veiculoId', new ParseIntPipe()) veiculoId,
+    @Body() veiculo: VeiculoDto,
+  ): Promise<GetVeiculoDto> {
+    const updated = await this.veiculoService.update(
+      veiculoId,
+      VeiculoDto.toDomain(veiculo),
+    );
+    return GetVeiculoDto.fromDomain(updated);
   }
 
   @Get('/:veiculoId')
@@ -34,7 +35,8 @@ export class VeiculoController {
   async get(
     @Param('veiculoId', new ParseIntPipe()) veiculoId,
   ): Promise<GetVeiculoDto> {
-    return this.veiculoService.getById(veiculoId);
+    const veiculo = await this.veiculoService.getById(veiculoId);
+    return GetVeiculoDto.fromDomain(veiculo);
   }
 
   @Delete('/:veiculoId')
@@ -43,11 +45,18 @@ export class VeiculoController {
     await this.veiculoService.deleteById(veiculoId);
   }
 
-  @Put('/:veiculoId')
-  async put(
-    @Param('veiculoId', new ParseIntPipe()) veiculoId,
-    @Body() veiculo: VeiculoDto,
-  ): Promise<GetVeiculoDto> {
-    return this.veiculoService.update(veiculoId, veiculo);
+  @Post()
+  async post(@Body() veiculo: VeiculoDto): Promise<GetVeiculoDto> {
+    const created = await this.veiculoService.create(
+      VeiculoDto.toDomain(veiculo),
+    );
+    return GetVeiculoDto.fromDomain(created);
+  }
+
+  @Get()
+  @UseFilters(new HttpExceptionFilter())
+  async list(): Promise<GetVeiculoDto[]> {
+    const veiculos = await this.veiculoService.list();
+    return veiculos.map((it) => GetVeiculoDto.fromDomain(it));
   }
 }

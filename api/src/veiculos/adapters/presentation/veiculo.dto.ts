@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsEnum, IsString } from 'class-validator';
-import { StatusVeiculo, Veiculo } from '../../core/veiculo.entity';
+import { StatusVeiculo, Veiculo } from 'src/veiculos/core/veiculo';
 
 export class VeiculoDto {
   @IsString()
@@ -50,28 +50,15 @@ export class GetVeiculoDto extends VeiculoDto {
   })
   status: StatusVeiculo;
 
-  static fromVeiculo(veiculo: Veiculo): GetVeiculoDto {
+  static fromDomain(veiculo: Veiculo): GetVeiculoDto {
     const veiculoDto = new GetVeiculoDto();
-    veiculoDto.ano = veiculo.ano;
-    veiculoDto.modelo = veiculo.modelo;
-    veiculoDto.montadora = veiculo.montadora;
-    veiculoDto.status = StatusVeiculo.DISPONIVEL;
-    veiculoDto.dataAquisicao = veiculo.dataAquisicao;
     veiculoDto.id = veiculo.id;
-
-    if (veiculo.manutencoes && veiculo.manutencoes.length) {
-      const today = new Date();
-      if (new Date(veiculo.manutencoes[0].dataInicio) <= today) {
-        veiculoDto.status = StatusVeiculo.EM_MANUTENCAO;
-      }
-
-      const nextManutencao = veiculo.manutencoes.filter(
-        (manutencao) => new Date(manutencao.dataInicio) >= today,
-      )[0];
-
-      if (nextManutencao)
-        veiculoDto.nextManutencaoDate = new Date(nextManutencao.dataInicio);
-    }
+    veiculoDto.montadora = veiculo.montadora;
+    veiculoDto.modelo = veiculo.modelo;
+    veiculoDto.ano = veiculo.ano;
+    veiculoDto.dataAquisicao = veiculo.dataAquisicao;
+    veiculoDto.status = veiculo.getStatus();
+    veiculoDto.nextManutencaoDate = veiculo.getNextManutencaoDate();
 
     return veiculoDto;
   }
