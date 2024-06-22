@@ -1,6 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { GestorEntity } from './gestor/adapters/database/gestor.entity';
+import { GestorsModule } from './gestor/gestor.module';
+import { GestorController } from './gestor/adapters/presentation/gestor.controller';
+import { GestorDataSource } from './gestor/adapters/database/gestor.datasource';
 import { VeiculosModule } from './veiculos/veiculo.module';
 import { VeiculoController } from './veiculos/adapters/presentation/veiculo.controller';
 import { VeiculosDataSource } from './veiculos/adapters/database/veiculo.datasource';
@@ -21,13 +25,14 @@ import { VeiculoEntity } from './veiculos/adapters/database/veiculo.entity';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       synchronize: true,
-      entities: [VeiculoEntity, ManutencaoEntity],
+      entities: [VeiculoEntity, ManutencaoEntity, GestorEntity],
       migrations: [],
     }),
     VeiculosModule,
     ManutencaoModule,
+    GestorsModule,
   ],
-  controllers: [VeiculoController, ManutencaoController],
-  providers: [VeiculosDataSource, ManutencaoDataSource],
+  controllers: [VeiculoController, ManutencaoController, GestorController],
+  providers: [VeiculosDataSource, ManutencaoDataSource, GestorDataSource],
 })
 export class AppModule {}
