@@ -83,7 +83,7 @@ function TabelaVeiculos() {
                 <TableCell component="th" scope="row">
                   {veiculo.montadora + veiculo.modelo}
                 </TableCell>
-                <TableCell align="center">{new Date(veiculo.dataAquisicao).toISOString().slice(0, 10)}</TableCell>
+                <TableCell align="center">{veiculo.dataAquisicao.toString().slice(0, 10)}</TableCell>
                 <TableCell align="center">{veiculo.nextManutencaoDate ? new Date(veiculo.nextManutencaoDate).toISOString().slice(0, 10) : null}</TableCell>
                 <TableCell align="right">
                   <PaddingButton onClick={() => handleManutencao(veiculo)} variant="outlined" sx={{

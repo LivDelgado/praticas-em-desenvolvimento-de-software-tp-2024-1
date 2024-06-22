@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Veiculo } from '../types/veiculo';
 import { VeiculoApi } from '../api/veiculo.api';
 import { FormularioVeiculos } from '../components/formularioVeiculos';
+import dayjs from 'dayjs';
+
 
 const EdicaoVeiculo = () => {
   const { veiculoId } = useParams();
@@ -14,7 +16,7 @@ const EdicaoVeiculo = () => {
     const fetchVeiculo = async () => {
       try {
         const fetched = await VeiculoApi.get(Number(veiculoId));
-        fetched.dataAquisicao = new Date(fetched.dataAquisicao);
+        fetched.dataAquisicao = dayjs(fetched.dataAquisicao);
         setVeiculo(fetched);
       } catch (error) {
         console.error(error);

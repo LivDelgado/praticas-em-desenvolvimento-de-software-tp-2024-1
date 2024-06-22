@@ -1,56 +1,109 @@
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { Veiculo } from "../types/veiculo";
+import { Box, Button, TextField } from "@mui/material";
+import { Col, Row } from "react-bootstrap";
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from "dayjs";
 
 export const FormularioVeiculos = ({ veiculo, onSubmit }: { veiculo: Veiculo | undefined, onSubmit: (data: Veiculo) => void }) => {
-    const { register, handleSubmit, formState: {errors}, getValues } = useForm({
+    const { register, control, handleSubmit, formState: { errors }, getValues } = useForm({
         defaultValues: {
             ...veiculo,
-            dataAquisicaoFormatada: veiculo?.dataAquisicao?.toISOString().substring(0, 10)
         }
     });
+
+    const { ref: montadoraInputRef, ...montadoraInputProps } = register("montadora", {
+        required: "A montadora do veículo é obrigatória"
+    });
+
+    const { ref: modeloInputRef, ...modeloInputProps } = register("modelo", {
+        required: "O modelo do veículo é obrigatório"
+    });
+
+    const { ref: anoInputRef, ...anoInputProps } = register("ano", {
+        required: "O ano do veículo é obrigatório"
+    });
+
 
     const submitWrapper = (data: any) => {
         const values = getValues();
         const veiculoAtualizado: Veiculo = {
             ...data,
-            dataAquisicao: new Date(values.dataAquisicaoFormatada?.toString() ?? "")
         };
         onSubmit(veiculoAtualizado);
     }
 
     return (
         <div>
+
             <form onSubmit={handleSubmit(submitWrapper)}>
+                <Box>
+                    <Row>
+                        <Col>
+                            <TextField id="montadora" label="Montadora" variant="outlined"
+                                {...montadoraInputProps}
+                                helperText={errors.montadora?.message}
+                                defaultValue={veiculo?.montadora}
+                                error={errors.montadora != null}
+                                ref={montadoraInputRef}
+                            />
 
-                <label htmlFor="montadora">Montadora</label>
-                <input id="montadora" {...register('montadora', { required: { value: true, message: 'A montadora do veículo é obrigatória' } })} />
-                <br />
-                {errors.montadora && <span>{errors.montadora.message}</span>} 
 
-                <label htmlFor="modelo">Modelo</label>
-                <input id="modelo" {...register('modelo', { required: { value: true, message: 'O modelo do veículo é obrigatório' } })} />
-                <br />
-                {errors.modelo && <span>{errors.modelo.message}</span>} 
+                            <TextField id="modelo" label="Modelo" variant="outlined"
+                                {...modeloInputProps}
+                                ref={modeloInputRef}
+                                helperText={errors.modelo?.message}
+                                defaultValue={veiculo?.modelo}
+                                error={errors.modelo != null}
+                            />
+                        </Col>
+                        <Col>
+                            <TextField id="ano" label="Ano" variant="outlined"
+                                {...anoInputProps}
+                                ref={anoInputRef}
+                                type="number"
+                                helperText={errors.ano?.message}
+                                defaultValue={veiculo?.ano}
+                                error={errors.ano != null}
+                            />
+                            <Controller
+                                name="dataAquisicao"
+                                control={control}
+                                render={({ field, }) => (
+                                    <DatePicker
+                                        label="Data de aquisição"
 
-                <label htmlFor="ano">Ano</label>
-                <input id="ano" {...register('ano', { required: { value: true, message: 'O ano do veículo é obrigatório' } })} />
-                <br />
-                {errors.ano && <span>{errors.ano.message}</span>} 
+                                        {...field}
+                                        slotProps={{
+                                            textField: {
+                                                id: "dataAquisicaoFormatada",
+                                                error: errors.dataAquisicao != null, // Bolean
+                                                helperText: errors.dataAquisicao?.message,
+                                                defaultValue: dayjs(veiculo?.dataAquisicao),
+                                                // onChange: field.onChange,
+                                                value: dayjs(field.value),
+                                            },
+                                        }}
 
-                <label htmlFor="dataAquisicaoFormatada">Data de aquisição</label>
-                <input id="dataAquisicaoFormatada" type="date" {...register('dataAquisicaoFormatada', { required: { value: true, message: 'A data de aquisição é obrigatória' }, valueAsDate: true })} />
-                <br />
-                {errors.dataAquisicaoFormatada && <span>{errors.dataAquisicaoFormatada.message}</span>} 
+                                    />
+                                )}
+                            />
+                        </Col>
+                    </Row>
+                </Box>
 
-                {/* <label htmlFor="motorista">Motorista</label>
-<input id="motorista" {...register('motorista', { required: true })} />
-{errors.motorista && <span>Preenchimento obrigatório</span>} */}
+                <Row>
+                    <Col style={{ display: 'flex' }}>
+                        <Button
+                            type="submit"
 
-                {/* <label htmlFor="proximaManutencao">Próxima manutenção</label>
-<input id="proximaManutencao" type="date" {...register('proximaManutencao', { required: true })} />
-{errors.proximaManutencao && <span>Preenchimento obrigatório</span>} */}
-
-                <input type="submit" value="Salvar" />
+                            sx={{ backgroundColor: '#1554F6', height: '48px', marginTop: '32px' }}
+                            variant="contained"
+                        >
+                            Salvar
+                        </Button>
+                    </Col>
+                </Row>
             </form>
         </div>
     )

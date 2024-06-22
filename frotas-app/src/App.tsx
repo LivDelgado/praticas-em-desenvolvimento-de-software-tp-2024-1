@@ -11,6 +11,8 @@ import CriacaoVeiculo from "./veiculos/screens/criacaoVeiculo";
 import { ListaManutencoes } from "./manutencoes/screens/listaManutencoes";
 import CriacaoManutencao from "./manutencoes/screens/criacaoManutencao";
 import EdicaoManutencao from "./manutencoes/screens/edicaoManutencao";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 export default function App() {
   return (
@@ -26,15 +28,18 @@ export default function App() {
             </li>
           </ul>
         </nav>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Routes>
+            <Route path="/veiculos" element={<ListaVeiculos />} />
+            <Route path="/veiculos/:veiculoId" element={<EdicaoVeiculo />} />
+            <Route path="/veiculos/novo" element={<CriacaoVeiculo />} />
+            <Route path="/veiculos/:veiculoId/manutencao" element={<ListaManutencoes />} />
+            <Route path="/veiculos/:veiculoId/manutencao/nova" element={<CriacaoManutencao />} />
+            <Route path="/veiculos/:veiculoId/manutencao/:manutencaoId" element={<EdicaoManutencao />} />
+          </Routes>
+        </LocalizationProvider>
 
-        <Routes>
-          <Route path="/veiculos" element={<ListaVeiculos />} />
-          <Route path="/veiculos/:veiculoId" element={<EdicaoVeiculo />} />
-          <Route path="/veiculos/novo" element={<CriacaoVeiculo />} />
-          <Route path="/veiculos/:veiculoId/manutencao" element={<ListaManutencoes />} />
-          <Route path="/veiculos/:veiculoId/manutencao/nova" element={<CriacaoManutencao />} />
-          <Route path="/veiculos/:veiculoId/manutencao/:manutencaoId" element={<EdicaoManutencao />} />
-        </Routes>
+
       </div>
     </Router>
   );
