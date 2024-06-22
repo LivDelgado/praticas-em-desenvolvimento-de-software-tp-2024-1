@@ -3,6 +3,7 @@ import { Manutencao } from "../types/manutencao";
 import { Col, Row } from "react-bootstrap";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
+import { Button } from "@mui/material";
 
 export const FormularioManutencao = ({ manutencao, onSubmit }: { manutencao: Manutencao | undefined, onSubmit: (data: Manutencao) => void }) => {
     const { control, handleSubmit, formState: { errors }, getValues } = useForm({
@@ -22,8 +23,6 @@ export const FormularioManutencao = ({ manutencao, onSubmit }: { manutencao: Man
     return (
         <div>
             <form onSubmit={handleSubmit(submitWrapper)}>
-
-
                 <Row>
                     <Col>
 
@@ -83,8 +82,18 @@ export const FormularioManutencao = ({ manutencao, onSubmit }: { manutencao: Man
                 <input id="dataFimFormatada" type="date" {...register('dataFimFormatada', { required: { value: true, message: 'A data de aquisição é obrigatória' }, valueAsDate: true })} />
                 <br />
                 {errors.dataFimFormatada && <span>{errors.dataFimFormatada.message}</span>} */}
+                <Row>
+                    <Col style={{ display: 'flex' }}>
+                        <Button
+                            type="submit"
 
-                <input type="submit" value="Salvar" />
+                            sx={{ backgroundColor: '#1554F6', height: '48px', marginTop: '32px' }}
+                            variant="contained"
+                        >
+                            Salvar
+                        </Button>
+                    </Col>
+                </Row>
             </form>
         </div>
     )
