@@ -36,7 +36,7 @@ export class ManutencaoEntity {
     domain.id = this.id;
     domain.dataInicio = this.dataInicio;
     domain.dataFim = this.dataFim;
-    domain.veiculo = this.veiculo.toDomain();
+    domain.veiculo = this.veiculo?.toDomain();
 
     return domain;
   }
@@ -47,7 +47,9 @@ export class ManutencaoEntity {
     entity.id = manutencao.id;
     entity.dataInicio = manutencao.dataInicio;
     entity.dataFim = manutencao.dataFim;
-    entity.veiculo = VeiculoEntity.fromDomain(manutencao.veiculo);
+    entity.veiculo = manutencao.veiculo
+      ? VeiculoEntity.fromDomain(manutencao.veiculo)
+      : undefined;
 
     return entity;
   }
