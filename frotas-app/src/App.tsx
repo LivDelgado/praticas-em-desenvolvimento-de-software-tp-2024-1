@@ -13,6 +13,7 @@ import CriacaoManutencao from "./manutencoes/screens/criacaoManutencao";
 import EdicaoManutencao from "./manutencoes/screens/edicaoManutencao";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { ListaMotoristas } from "./motoristas/screens/listaMotoristas";
 
 export default function App() {
   return (
@@ -26,11 +27,15 @@ export default function App() {
             <li>
               <Link to="/veiculos">Veículos</Link>
             </li>
+            <li>
+              <Link to="/motoristas">Motoristas</Link>
+            </li>
           </ul>
         </nav>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Routes>
             <Route path="/veiculos" element={<ListaVeiculos />} />
+            <Route path="/motoristas" element={<ListaMotoristas />} />
             <Route path="/veiculos/:veiculoId" element={<EdicaoVeiculo />} />
             <Route path="/veiculos/novo" element={<CriacaoVeiculo />} />
             <Route path="/veiculos/:veiculoId/manutencao" element={<ListaManutencoes />} />
