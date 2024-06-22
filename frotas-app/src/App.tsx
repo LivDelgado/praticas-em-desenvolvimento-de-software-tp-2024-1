@@ -17,7 +17,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 export default function App() {
   return (
     <Router>
-      <div>
+      <div style={{ padding: '32px' }}>
         <nav>
           <ul>
             <li>
