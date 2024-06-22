@@ -15,14 +15,12 @@ const EdicaoManutencao = () => {
       try {
         const manutencoesVeiculo = await ManutencaoApi.getAll(Number(veiculoId));
         const manutencao = manutencoesVeiculo.filter((it) => it.id === Number(manutencaoId))?.[0] as Manutencao;
-        manutencao.dataInicio = new Date(manutencao.dataInicio);
-        manutencao.dataFim = new Date(manutencao.dataFim);
         setManutencao(manutencao);
       } catch (error) {
         console.error(error);
       }
     };
-  
+
     fetchManutencao();
   }, [veiculoId, manutencaoId]);
 

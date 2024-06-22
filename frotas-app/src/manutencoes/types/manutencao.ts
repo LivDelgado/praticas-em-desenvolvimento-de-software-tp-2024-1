@@ -1,5 +1,7 @@
+import { Dayjs } from "dayjs";
+
 export type Manutencao = {
     id: number;
-    dataInicio: Date;
-    dataFim: Date;
+    dataInicio: Dayjs;
+    dataFim: Dayjs;
 }

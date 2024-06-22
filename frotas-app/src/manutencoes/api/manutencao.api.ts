@@ -1,12 +1,17 @@
 import { api } from "../../configs/axiosConfigs";
 import axios from "axios";
 import { Manutencao } from "../types/manutencao";
+import dayjs from "dayjs";
 
 const instance = axios.create(api);
 
 export const ManutencaoApi = {
   getAll: async function (veiculoId: number) {
     const response = await instance.get<Manutencao[]>(`veiculos/${veiculoId}/manutencoes`);
+    response.data.forEach((it) => {
+      it.dataFim = dayjs(it.dataFim);
+      it.dataInicio = dayjs(it.dataInicio);
+    });
     return response.data;
   },
 
