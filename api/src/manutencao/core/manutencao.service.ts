@@ -23,7 +23,7 @@ export class ManutencaoService implements IManutencaoService {
 
     const created = await this.manutencaoRepository.save(manutencao);
 
-    await this.notificarGestores(manutencao);
+    if (created) await this.notificarGestores(manutencao);
 
     return created;
   }
@@ -38,7 +38,7 @@ export class ManutencaoService implements IManutencaoService {
 
     const updated = await this.manutencaoRepository.update(id, manutencao);
 
-    await this.notificarGestores(manutencao);
+    if (updated) await this.notificarGestores(manutencao);
 
     return updated;
   }
@@ -53,6 +53,8 @@ export class ManutencaoService implements IManutencaoService {
 
   private async notificarGestores(manutencao: Manutencao) {
     const gestores = await this.gestorRepository.findAll();
+
+    if (!gestores.length) return;
 
     this.notificacaoService.agendarNotificacao(
       new NotificacaoManutencaoAgendada(manutencao, gestores),

@@ -18,7 +18,7 @@ export class ManutencaoDataSource implements IManutencaoRepository {
       ManutencaoEntity.fromDomain(manutencao),
     );
     const created = await this.manutencaoRepository.save(newManutencao);
-    return created.toDomain();
+    return created?.toDomain();
   }
 
   async update(id: number, manutencao: Manutencao): Promise<Manutencao> {
@@ -26,7 +26,7 @@ export class ManutencaoDataSource implements IManutencaoRepository {
     const updated = await this.manutencaoRepository.save(
       ManutencaoEntity.fromDomain(manutencao),
     );
-    return updated.toDomain();
+    return updated?.toDomain();
   }
 
   async deleteById(id: number): Promise<void> {

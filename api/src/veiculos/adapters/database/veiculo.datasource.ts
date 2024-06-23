@@ -18,7 +18,7 @@ export class VeiculosDataSource implements IVeiculoRepository {
       VeiculoEntity.fromDomain(veiculo),
     );
     const created = await this.veiculoRepository.save(newVeiculo);
-    return created.toDomain();
+    return created?.toDomain();
   }
 
   async update(id: number, veiculo: Veiculo): Promise<Veiculo> {
@@ -26,7 +26,7 @@ export class VeiculosDataSource implements IVeiculoRepository {
     const updated = await this.veiculoRepository.save(
       VeiculoEntity.fromDomain(veiculo),
     );
-    return updated.toDomain();
+    return updated?.toDomain();
   }
 
   async findOne(
@@ -40,7 +40,7 @@ export class VeiculosDataSource implements IVeiculoRepository {
       ano: ano,
     });
 
-    return veiculo.toDomain();
+    return veiculo?.toDomain();
   }
 
   async findById(id: number, returnManutencao = false): Promise<Veiculo> {
