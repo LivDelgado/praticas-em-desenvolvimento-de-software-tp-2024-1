@@ -14,8 +14,10 @@ import {
 import { HttpExceptionFilter } from '../../../http-exception.filter';
 import { GetManutencaoDto, ManutencaoDto } from './manutencao.dto';
 import { IManutencaoService } from 'src/manutencao/core/ports/inbound/IManutencaoService';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('veiculos/:veiculoId/manutencoes')
+@ApiTags('Manutenções')
 @UseFilters(new HttpExceptionFilter())
 export class ManutencaoController {
   constructor(private manutencaoService: IManutencaoService) {}

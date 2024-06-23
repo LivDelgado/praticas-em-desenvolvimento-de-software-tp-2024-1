@@ -12,8 +12,10 @@ import {
 import { HttpExceptionFilter } from '../../../http-exception.filter';
 import { GetGestorDto, GestorDto } from './gestor.dto';
 import { IGestorService } from '../../core/ports/inbound/IGestorService';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('gestors')
+@Controller('gestores')
+@ApiTags('Gestores')
 @UseFilters(new HttpExceptionFilter())
 export class GestorController {
   constructor(private gestorService: IGestorService) {}
@@ -54,7 +56,7 @@ export class GestorController {
   @Get()
   @UseFilters(new HttpExceptionFilter())
   async list(): Promise<GetGestorDto[]> {
-    const gestors = await this.gestorService.list();
-    return gestors.map((it) => GetGestorDto.fromDomain(it));
+    const gestores = await this.gestorService.list();
+    return gestores.map((it) => GetGestorDto.fromDomain(it));
   }
 }

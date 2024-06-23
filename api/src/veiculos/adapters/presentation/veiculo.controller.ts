@@ -12,8 +12,10 @@ import {
 import { HttpExceptionFilter } from '../../../http-exception.filter';
 import { GetVeiculoDto, VeiculoDto } from './veiculo.dto';
 import { IVeiculoService } from 'src/veiculos/core/ports/inbound/IVeiculoService';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('veiculos')
+@ApiTags('Veiculos')
 @UseFilters(new HttpExceptionFilter())
 export class VeiculoController {
   constructor(private veiculoService: IVeiculoService) {}
