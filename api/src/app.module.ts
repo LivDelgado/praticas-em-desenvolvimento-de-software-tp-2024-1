@@ -28,11 +28,11 @@ import { VeiculoEntity } from './veiculos/adapters/database/veiculo.entity';
       entities: [VeiculoEntity, ManutencaoEntity, GestorEntity],
       migrations: [],
     }),
+    GestorsModule,
     VeiculosModule,
     ManutencaoModule,
-    GestorsModule,
   ],
-  controllers: [VeiculoController, ManutencaoController, GestorController],
-  providers: [VeiculosDataSource, ManutencaoDataSource, GestorDataSource],
+  controllers: [GestorController, VeiculoController, ManutencaoController],
+  providers: [GestorDataSource, VeiculosDataSource, ManutencaoDataSource],
 })
 export class AppModule {}
