@@ -51,7 +51,7 @@ export class VeiculosDataSource implements IVeiculoRepository {
       },
     });
 
-    if (veiculos) return veiculos[0].toDomain();
+    if (veiculos.length) return veiculos[0].toDomain();
     return null;
   }
 
