@@ -9,6 +9,10 @@ import { ManutencaoController } from './manutencao/adapters/presentation/manuten
 import { ManutencaoDataSource } from './manutencao/adapters/database/manutencao.datasource';
 import { ManutencaoEntity } from './manutencao/adapters/database/manutencao.entity';
 import { VeiculoEntity } from './veiculos/adapters/database/veiculo.entity';
+import { MotoristaController } from './motorista/adapters/presentation/motorista.controller';
+import { MotoristaDataSource } from './motorista/adapters/database/motorista.datasource';
+import { MotoristaEntity } from './motorista/adapters/database/motorista.entity';
+import { MotoristaModule } from './motorista/motorista.module';
 
 @Module({
   imports: [
@@ -21,13 +25,14 @@ import { VeiculoEntity } from './veiculos/adapters/database/veiculo.entity';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       synchronize: true,
-      entities: [VeiculoEntity, ManutencaoEntity],
+      entities: [VeiculoEntity, ManutencaoEntity, MotoristaEntity],
       migrations: [],
     }),
     VeiculosModule,
     ManutencaoModule,
+    MotoristaModule,
   ],
-  controllers: [VeiculoController, ManutencaoController],
-  providers: [VeiculosDataSource, ManutencaoDataSource],
+  controllers: [VeiculoController, ManutencaoController, MotoristaController],
+  providers: [VeiculosDataSource, ManutencaoDataSource, MotoristaDataSource],
 })
 export class AppModule {}

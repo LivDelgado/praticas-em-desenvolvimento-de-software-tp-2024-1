@@ -9,7 +9,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-@Entity()
+@Entity('manutencao')
 export class ManutencaoEntity {
   @PrimaryGeneratedColumn()
   id: number;
