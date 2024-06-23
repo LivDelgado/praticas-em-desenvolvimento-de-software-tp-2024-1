@@ -12,7 +12,7 @@ import {
 import { HttpExceptionFilter } from '../../../http-exception.filter';
 import { GetGestorDto, GestorDto } from './gestor.dto';
 import { IGestorService } from '../../core/ports/inbound/IGestorService';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiParam, ApiTags } from '@nestjs/swagger';
 
 @Controller('gestores')
 @ApiTags('Gestores')
@@ -21,8 +21,14 @@ export class GestorController {
   constructor(private gestorService: IGestorService) {}
 
   @Put('/:gestorId')
+  @ApiParam({
+    name: 'gestorId',
+    required: true,
+    description: 'ID do gestor',
+    type: Number,
+  })
   async put(
-    @Param('gestorId', new ParseIntPipe()) gestorId,
+    @Param('gestorId', new ParseIntPipe()) gestorId: number,
     @Body() gestor: GestorDto,
   ): Promise<GetGestorDto> {
     const updated = await this.gestorService.update(
@@ -33,17 +39,29 @@ export class GestorController {
   }
 
   @Get('/:gestorId')
+  @ApiParam({
+    name: 'gestorId',
+    required: true,
+    description: 'ID do gestor',
+    type: Number,
+  })
   @UseFilters(new HttpExceptionFilter())
   async get(
-    @Param('gestorId', new ParseIntPipe()) gestorId,
+    @Param('gestorId', new ParseIntPipe()) gestorId: number,
   ): Promise<GetGestorDto> {
     const gestor = await this.gestorService.getById(gestorId);
     return GetGestorDto.fromDomain(gestor);
   }
 
   @Delete('/:gestorId')
+  @ApiParam({
+    name: 'gestorId',
+    required: true,
+    description: 'ID do gestor',
+    type: Number,
+  })
   @UseFilters(new HttpExceptionFilter())
-  async remove(@Param('gestorId', new ParseIntPipe()) gestorId) {
+  async remove(@Param('gestorId', new ParseIntPipe()) gestorId: number) {
     await this.gestorService.deleteById(gestorId);
   }
 
