@@ -5,33 +5,33 @@ import { IVeiculoRepository } from './ports/outbound/IVeiculoRepository';
 
 @Injectable()
 export class VeiculosService implements IVeiculoService {
-  constructor(private readonly veiculosDataSource: IVeiculoRepository) {}
+  constructor(private readonly veiculoRepository: IVeiculoRepository) {}
 
   async findOne(
     montadora: string,
     modelo: string,
     ano: string,
   ): Promise<Veiculo> {
-    return this.veiculosDataSource.findOne(montadora, modelo, ano);
+    return this.veiculoRepository.findOne(montadora, modelo, ano);
   }
 
   async create(veiculo: Veiculo): Promise<Veiculo> {
-    return await this.veiculosDataSource.save(veiculo);
+    return await this.veiculoRepository.save(veiculo);
   }
 
   async update(id: number, veiculo: Veiculo): Promise<Veiculo> {
-    return this.veiculosDataSource.update(id, veiculo);
+    return this.veiculoRepository.update(id, veiculo);
   }
 
   async list(): Promise<Veiculo[]> {
-    return this.veiculosDataSource.findAll();
+    return this.veiculoRepository.findAll();
   }
 
   async getById(id: number): Promise<Veiculo> {
-    return this.veiculosDataSource.findById(id, false);
+    return this.veiculoRepository.findById(id, false);
   }
 
-  async deleteById(id: number) {
-    await this.veiculosDataSource.deleteById(id);
+  async deleteById(id: number): Promise<void> {
+    await this.veiculoRepository.deleteById(id);
   }
 }

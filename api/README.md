@@ -16,7 +16,8 @@ The first thing you need is to setup docker, please follow the step:
     DB_HOST='db'
     DB_NAME='origin'
     DB_PASSWORD='123456'
-    DB_PORT=5432 
+    DB_PORT=5432
+    API_KEY=<KEY> 
     ```
 2. Open your terminal and at the root of the project run:
  ```docker compose up```
@@ -34,7 +35,8 @@ You can also run the project without using the docker. Following these steps:
     DB_HOST='localhost'
     DB_NAME='origin'
     DB_PASSWORD='123456'
-    DB_PORT=5432 
+    DB_PORT=5432
+    API_KEY=<KEY>  
     ```
 3. Open your terminal on the root folder and run: 
   ```npm install```

@@ -1,6 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { GestorEntity } from './gestor/adapters/database/gestor.entity';
+import { GestorsModule } from './gestor/gestor.module';
+import { GestorController } from './gestor/adapters/presentation/gestor.controller';
+import { GestorDataSource } from './gestor/adapters/database/gestor.datasource';
 import { VeiculosModule } from './veiculos/veiculo.module';
 import { VeiculoController } from './veiculos/adapters/presentation/veiculo.controller';
 import { VeiculosDataSource } from './veiculos/adapters/database/veiculo.datasource';
@@ -13,6 +17,7 @@ import { MotoristaController } from './motorista/adapters/presentation/motorista
 import { MotoristaDataSource } from './motorista/adapters/database/motorista.datasource';
 import { MotoristaEntity } from './motorista/adapters/database/motorista.entity';
 import { MotoristaModule } from './motorista/motorista.module';
+import { NotificacoesModule } from './notificacoes/notificacoes.module';
 
 @Module({
   imports: [
@@ -25,14 +30,31 @@ import { MotoristaModule } from './motorista/motorista.module';
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
       synchronize: true,
-      entities: [VeiculoEntity, ManutencaoEntity, MotoristaEntity],
+      entities: [
+        VeiculoEntity,
+        ManutencaoEntity,
+        GestorEntity,
+        MotoristaEntity,
+      ],
       migrations: [],
     }),
+    GestorsModule,
     VeiculosModule,
     ManutencaoModule,
+    NotificacoesModule,
     MotoristaModule,
   ],
-  controllers: [VeiculoController, ManutencaoController, MotoristaController],
-  providers: [VeiculosDataSource, ManutencaoDataSource, MotoristaDataSource],
+  controllers: [
+    GestorController,
+    VeiculoController,
+    ManutencaoController,
+    MotoristaController,
+  ],
+  providers: [
+    GestorDataSource,
+    VeiculosDataSource,
+    ManutencaoDataSource,
+    MotoristaDataSource,
+  ],
 })
 export class AppModule {}
