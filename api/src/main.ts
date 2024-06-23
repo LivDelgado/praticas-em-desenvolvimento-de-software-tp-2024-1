@@ -20,8 +20,8 @@ async function bootstrap() {
 
   //setup swagger module
   const config = new DocumentBuilder()
-    .setTitle('API example')
-    .setDescription('The API description')
+    .setTitle('Gestão de frotas')
+    .setDescription('API para realizar a gestão de frotas de veículos')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
