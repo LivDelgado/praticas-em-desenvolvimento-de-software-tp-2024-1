@@ -10,5 +10,5 @@ export abstract class IVeiculoService {
   abstract update(id: number, veiculo: Veiculo): Promise<Veiculo>;
   abstract list(): Promise<Veiculo[]>;
   abstract getById(id: number): Promise<Veiculo>;
-  abstract deleteById(id: number);
+  abstract deleteById(id: number): Promise<void>;
 }

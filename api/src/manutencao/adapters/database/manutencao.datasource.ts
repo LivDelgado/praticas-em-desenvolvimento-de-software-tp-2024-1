@@ -29,7 +29,7 @@ export class ManutencaoDataSource implements IManutencaoRepository {
     return updated.toDomain();
   }
 
-  async deleteById(id: number) {
+  async deleteById(id: number): Promise<void> {
     this.ManutencaoRepository.delete({ id: id });
   }
 

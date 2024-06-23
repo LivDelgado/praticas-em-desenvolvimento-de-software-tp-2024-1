@@ -10,5 +10,5 @@ export abstract class IVeiculoRepository {
   ): Promise<Veiculo>;
   abstract findById(id: number, returnManutencao: boolean): Promise<Veiculo>;
   abstract findAll(): Promise<Veiculo[]>;
-  abstract deleteById(id: number);
+  abstract deleteById(id: number): Promise<void>;
 }

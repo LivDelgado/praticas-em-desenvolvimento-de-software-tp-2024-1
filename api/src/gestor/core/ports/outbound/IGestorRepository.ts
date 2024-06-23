@@ -6,5 +6,5 @@ export abstract class IGestorRepository {
   abstract findOne(email: string): Promise<Gestor>;
   abstract findById(id: number): Promise<Gestor>;
   abstract findAll(): Promise<Gestor[]>;
-  abstract deleteById(id: number);
+  abstract deleteById(id: number): Promise<void>;
 }

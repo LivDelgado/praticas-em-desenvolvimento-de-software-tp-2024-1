@@ -15,7 +15,7 @@ export class GestorDataSource implements IGestorRepository {
 
   async save(gestor: Gestor): Promise<Gestor> {
     const newGestor = this.gestorRepository.create(
-        GestorEntity.fromDomain(gestor),
+      GestorEntity.fromDomain(gestor),
     );
     const created = await this.gestorRepository.save(newGestor);
     return created.toDomain();
@@ -24,14 +24,12 @@ export class GestorDataSource implements IGestorRepository {
   async update(id: number, gestor: Gestor): Promise<Gestor> {
     gestor.id = id;
     const updated = await this.gestorRepository.save(
-        GestorEntity.fromDomain(gestor),
+      GestorEntity.fromDomain(gestor),
     );
     return updated.toDomain();
   }
 
-  async findOne(
-    email: string
-  ): Promise<Gestor> {
+  async findOne(email: string): Promise<Gestor> {
     const gestor = await this.gestorRepository.findOneBy({
       email: email,
     });
@@ -49,7 +47,6 @@ export class GestorDataSource implements IGestorRepository {
   }
 
   async findAll(): Promise<Gestor[]> {
-    const date = new Date();
     const gestors = await this.gestorRepository
       .createQueryBuilder('GestorEntity')
       .select()
@@ -58,7 +55,7 @@ export class GestorDataSource implements IGestorRepository {
     return gestors.map((it) => it.toDomain());
   }
 
-  async deleteById(id: number) {
+  async deleteById(id: number): Promise<void> {
     this.gestorRepository.delete({ id: id });
   }
 }

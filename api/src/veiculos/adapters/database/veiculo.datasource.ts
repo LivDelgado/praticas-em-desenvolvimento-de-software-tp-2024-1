@@ -74,7 +74,7 @@ export class VeiculosDataSource implements IVeiculoRepository {
     return veiculos.map((it) => it.toDomain());
   }
 
-  async deleteById(id: number) {
+  async deleteById(id: number): Promise<void> {
     this.veiculoRepository.delete({ id: id });
   }
 }
