@@ -1,9 +1,11 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { ConsoleLogger, Inject, Injectable } from '@nestjs/common';
 import { VeiculosDataSource } from 'src/veiculos/adapters/database/veiculo.datasource';
+import { GestorDataSource } from 'src/gestor/adapters/database/gestor.datasource';
 import { ManutencaoInvalidaException } from './manutencao.exceptions';
 import { IManutencaoService } from './ports/inbound/IManutencaoService';
 import { IManutencaoRepository } from './ports/outbound/IManutencaoRepository';
 import { Manutencao } from './manutencao';
+import { MailerSend, EmailParams, Sender, Recipient } from "mailersend";
 
 @Injectable()
 export class ManutencaoService implements IManutencaoService {
@@ -11,6 +13,8 @@ export class ManutencaoService implements IManutencaoService {
     private readonly manutencaoDataSource: IManutencaoRepository,
     @Inject(VeiculosDataSource)
     private readonly veiculosDataSource: VeiculosDataSource,
+    @Inject(GestorDataSource)
+    private readonly gestorDataSource: GestorDataSource,
   ) {}
 
   async create(veiculoId: number, manutencao: Manutencao): Promise<Manutencao> {
@@ -18,7 +22,39 @@ export class ManutencaoService implements IManutencaoService {
 
     manutencao.veiculo = veiculo;
 
+    try {
+      await this.scheduleNotification(manutencao);
+    } 
+    catch (error) { console.log(error);}
+    
+
     return this.manutencaoDataSource.save(manutencao);
+  }
+
+  async scheduleNotification(manutencao: Manutencao){
+
+    const gestores = await this.gestorDataSource.findAll();
+
+    const mailersend = new MailerSend({
+      apiKey: process.env.API_KEY,
+    });
+
+    const sentFrom = new Sender("MS_QHUGsW@trial-jpzkmgqy16nl059v.mlsender.net", "Palantir");
+
+    gestores.forEach(async gestor => {
+      let recipients = [new Recipient(gestor.email, gestor.nome)];
+      let emailParams = new EmailParams()
+      .setFrom(sentFrom)
+      .setTo(recipients)
+      .setReplyTo(sentFrom)
+      .setSubject("Manutencao agendada")
+      .setHtml("Manutencao agendada de " + manutencao.dataInicio + " a " + manutencao.dataFim + " para o veiculo " + manutencao.veiculo.id);
+
+      const response = await mailersend.email.send(emailParams);
+
+      console.log(response);
+    });
+    
   }
 
   async update(
