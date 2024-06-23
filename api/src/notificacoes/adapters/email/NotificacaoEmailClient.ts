@@ -8,8 +8,8 @@ export class NotificacaoEmailClient implements INotificacaoProvider {
   private EmailSender = 'MS_QHUGsW@trial-jpzkmgqy16nl059v.mlsender.net';
   private EmailName = 'Palantir';
 
-  private mailerSend: MailerSend;
-  private sender: Sender;
+  private readonly mailerSend: MailerSend;
+  private readonly sender: Sender;
 
   constructor() {
     this.mailerSend = new MailerSend({

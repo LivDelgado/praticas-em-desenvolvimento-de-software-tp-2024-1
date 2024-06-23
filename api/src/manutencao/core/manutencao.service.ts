@@ -19,21 +19,13 @@ export class ManutencaoService implements IManutencaoService {
 
   async create(veiculoId: number, manutencao: Manutencao): Promise<Manutencao> {
     const veiculo = await this.validateManutencao(veiculoId, manutencao);
-
     manutencao.veiculo = veiculo;
+
     const created = await this.manutencaoRepository.save(manutencao);
 
-    await this.scheduleNotification(manutencao);
+    await this.notificarGestores(manutencao);
 
     return created;
-  }
-
-  async scheduleNotification(manutencao: Manutencao) {
-    const gestores = await this.gestorRepository.findAll();
-
-    this.notificacaoService.agendarNotificacao(
-      new NotificacaoManutencaoAgendada(manutencao, gestores),
-    );
   }
 
   async update(
@@ -42,10 +34,13 @@ export class ManutencaoService implements IManutencaoService {
     manutencao: Manutencao,
   ): Promise<Manutencao> {
     const veiculo = await this.validateManutencao(veiculoId, manutencao, id);
-
     manutencao.veiculo = veiculo;
 
-    return this.manutencaoRepository.update(id, manutencao);
+    const updated = await this.manutencaoRepository.update(id, manutencao);
+
+    await this.notificarGestores(manutencao);
+
+    return updated;
   }
 
   async deleteById(id: number): Promise<void> {
@@ -54,6 +49,14 @@ export class ManutencaoService implements IManutencaoService {
 
   async list(veiculoId: number): Promise<Manutencao[]> {
     return this.manutencaoRepository.findByVeiculoId(veiculoId);
+  }
+
+  private async notificarGestores(manutencao: Manutencao) {
+    const gestores = await this.gestorRepository.findAll();
+
+    this.notificacaoService.agendarNotificacao(
+      new NotificacaoManutencaoAgendada(manutencao, gestores),
+    );
   }
 
   private async validateManutencao(

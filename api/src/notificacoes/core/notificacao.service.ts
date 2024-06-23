@@ -8,6 +8,11 @@ export class NotificacaoService implements INotificacaoService {
   constructor(private readonly notificacaoProvider: INotificacaoProvider) {}
 
   async agendarNotificacao(notificacao: Notificacao): Promise<void> {
+    if (!notificacao.destinatarios.length) {
+      console.warn('Notificação sem destinatários');
+      return;
+    }
+
     await this.notificacaoProvider.agendarNotificacao(notificacao);
   }
 }
