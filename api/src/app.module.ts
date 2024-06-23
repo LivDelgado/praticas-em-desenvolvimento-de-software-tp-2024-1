@@ -13,6 +13,7 @@ import { ManutencaoController } from './manutencao/adapters/presentation/manuten
 import { ManutencaoDataSource } from './manutencao/adapters/database/manutencao.datasource';
 import { ManutencaoEntity } from './manutencao/adapters/database/manutencao.entity';
 import { VeiculoEntity } from './veiculos/adapters/database/veiculo.entity';
+import { NotificacoesModule } from './notificacoes/notificacoes.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { VeiculoEntity } from './veiculos/adapters/database/veiculo.entity';
     GestorsModule,
     VeiculosModule,
     ManutencaoModule,
+    NotificacoesModule,
   ],
   controllers: [GestorController, VeiculoController, ManutencaoController],
   providers: [GestorDataSource, VeiculosDataSource, ManutencaoDataSource],

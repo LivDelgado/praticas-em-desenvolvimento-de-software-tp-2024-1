@@ -5,29 +5,29 @@ import { IGestorRepository } from './ports/outbound/IGestorRepository';
 
 @Injectable()
 export class GestorService implements IGestorService {
-  constructor(private readonly gestorsDataSource: IGestorRepository) {}
+  constructor(private readonly gestorRepository: IGestorRepository) {}
 
   async findOne(email: string): Promise<Gestor> {
-    return this.gestorsDataSource.findOne(email);
+    return this.gestorRepository.findOne(email);
   }
 
   async create(gestor: Gestor): Promise<Gestor> {
-    return await this.gestorsDataSource.save(gestor);
+    return await this.gestorRepository.save(gestor);
   }
 
   async update(id: number, gestor: Gestor): Promise<Gestor> {
-    return this.gestorsDataSource.update(id, gestor);
+    return this.gestorRepository.update(id, gestor);
   }
 
   async list(): Promise<Gestor[]> {
-    return this.gestorsDataSource.findAll();
+    return this.gestorRepository.findAll();
   }
 
   async getById(id: number): Promise<Gestor> {
-    return this.gestorsDataSource.findById(id);
+    return this.gestorRepository.findById(id);
   }
 
-  async deleteById(id: number) {
-    await this.gestorsDataSource.deleteById(id);
+  async deleteById(id: number): Promise<void> {
+    await this.gestorRepository.deleteById(id);
   }
 }

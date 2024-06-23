@@ -10,7 +10,6 @@ export abstract class IManutencaoService {
     id: number,
     manutencao: Manutencao,
   ): Promise<Manutencao>;
-  abstract deleteById(id: number);
-  abstract scheduleNotification(manutencao: Manutencao);
+  abstract deleteById(id: number): Promise<void>;
   abstract list(veiculoId: number): Promise<Manutencao[]>;
 }
