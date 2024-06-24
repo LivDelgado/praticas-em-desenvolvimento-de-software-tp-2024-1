@@ -51,19 +51,8 @@ export default function App() {
             <hr />
           </div>
           <div id="nav-content">
-            <div className="nav-button"><i className="fas fa-palette"></i><span><Link to="/veiculos">Veículos</Link></span></div>
-            <div className="nav-button"><i className="fas fa-images"></i><span><Link to="/motoristas">Motoristas</Link></span></div>
-          </div>
-          <input id="nav-footer-toggle" type="checkbox" />
-          <div id="nav-footer">
-            <div id="nav-footer-heading">
-              <div id="nav-footer-avatar"><img src="https://gravatar.com/avatar/4474ca42d303761c2901fa819c4f2547" alt="avatar" /></div>
-              <div id="nav-footer-titlebox"><a id="nav-footer-title" href="https://codepen.io/uahnbu/pens/public" target="_blank" rel="noopener noreferrer">uahnbu</a><span id="nav-footer-subtitle">Admin</span></div>
-              <label htmlFor="nav-footer-toggle"><i className="fas fa-caret-up"></i></label>
-            </div>
-            <div id="nav-footer-content">
-              {/* Additional footer content can be added here */}
-            </div>
+            <div className="nav-button"><i className="fas fa-car"></i><span><Link to="/veiculos">Veículos</Link></span></div>
+            <div className="nav-button"><i className="fas fa-user"></i><span><Link to="/motoristas">Motoristas</Link></span></div>
           </div>
         </div>
         <div className="app-content">
