@@ -34,6 +34,12 @@ export class Veiculo {
       return null;
     }
   }
+
+  getNomeMotorista() {
+    return this.motorista
+      ? this.motorista.nome + ' ' + this.motorista.sobrenome
+      : null;
+  }
 }
 
 export enum StatusVeiculo {
