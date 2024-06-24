@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   HttpException,
   HttpStatus,
   Param,
@@ -62,5 +63,12 @@ export class MotoristaController {
   @UseFilters(new HttpExceptionFilter())
   async remove(@Param('motoristaId', new ParseIntPipe()) motoristaId: number) {
     await this.motoristaService.deleteById(motoristaId);
+  }
+
+  @Get()
+  @UseFilters(new HttpExceptionFilter())
+  async list(): Promise<GetMotoristaDto[]> {
+    const motoristas = await this.motoristaService.list();
+    return motoristas.map((it) => GetMotoristaDto.fromDomain(it));
   }
 }

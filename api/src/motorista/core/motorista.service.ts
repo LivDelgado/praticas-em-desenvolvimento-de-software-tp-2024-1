@@ -15,4 +15,7 @@ export class MotoristaService implements IMotoristaService {
   async deleteById(id: number): Promise<void> {
     return await this.motoristaRepository.deleteById(id);
   }
+  async list(): Promise<Motorista[]> {
+    return await this.motoristaRepository.findAll();
+  }
 }
