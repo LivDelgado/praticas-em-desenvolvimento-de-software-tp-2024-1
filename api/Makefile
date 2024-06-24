@@ -4,6 +4,8 @@ setup: build start migrate
 
 create-migrations: build start generate-migrations
 
+present: setup seed
+
 start:
 	docker-compose up -d
 
@@ -25,3 +27,6 @@ build:
 ps:
 	docker-compose ps
 
+seed:
+	docker exec -it postgres sh -c "psql < seed.sql"
+	
