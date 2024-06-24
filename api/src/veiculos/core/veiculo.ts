@@ -46,6 +46,14 @@ export class Veiculo {
       ? this.motorista.nome + ' ' + this.motorista.sobrenome
       : null;
   }
+
+  emManutencao(): boolean {
+    return this.getStatus() == StatusVeiculo.EM_MANUTENCAO;
+  }
+
+  alocado(): boolean {
+    return this.getStatus() == StatusVeiculo.ALOCADO;
+  }
 }
 
 export enum StatusVeiculo {
