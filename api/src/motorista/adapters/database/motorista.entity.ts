@@ -1,8 +1,11 @@
+import { VeiculoEntity } from '../../../veiculos/adapters/database/veiculo.entity';
 import { Motorista } from '../../core/motorista';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -29,6 +32,12 @@ export class MotoristaEntity {
 
   @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
   @UpdateDateColumn({ name: 'updated_at' }) 'updated_at': Date;
+
+  @OneToOne(() => VeiculoEntity, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'veiculoId' })
+  veiculo: VeiculoEntity | null;
 
   toDomain(): Motorista {
     const domain = new Motorista();

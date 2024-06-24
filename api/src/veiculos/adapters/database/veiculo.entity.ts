@@ -1,3 +1,4 @@
+import { MotoristaEntity } from '../../../motorista/adapters/database/motorista.entity';
 import { ManutencaoEntity } from '../../../manutencao/adapters/database/manutencao.entity';
 import { Veiculo } from '../../core/veiculo';
 import {
@@ -7,6 +8,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 
 @Entity('veiculo')
@@ -31,8 +33,16 @@ export class VeiculoEntity {
   @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
   @UpdateDateColumn({ name: 'updated_at' }) 'updated_at': Date;
 
-  @OneToMany(() => ManutencaoEntity, (manutencao) => manutencao.veiculo)
+  @OneToMany(() => ManutencaoEntity, (manutencao) => manutencao.veiculo, {
+    cascade: true,
+  })
   manutencoes: ManutencaoEntity[];
+
+  @OneToOne(() => MotoristaEntity, (motorista) => motorista.veiculo, {
+    cascade: true,
+    nullable: true,
+  })
+  motorista: MotoristaEntity | null;
 
   toDomain(): Veiculo {
     const domain = new Veiculo();

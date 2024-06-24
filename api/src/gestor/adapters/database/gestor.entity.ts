@@ -2,7 +2,7 @@ import { Gestor } from '../../core/gestor';
 
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity('gestor')
 export class GestorEntity {
   @PrimaryGeneratedColumn()
   id: number;
