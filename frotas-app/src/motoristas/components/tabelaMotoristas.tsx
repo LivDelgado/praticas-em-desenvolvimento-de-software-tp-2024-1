@@ -39,6 +39,13 @@ function TabelaMotoristas() {
         }
     };
 
+    const getCardImage = (motorista: Motorista) => {
+        if(motorista.imagemAvatar){
+            return "data:image/jpeg;base64,".concat(motorista.imagemAvatar);
+        }
+
+        return defaultprofile;
+    }
 
     return (
 
@@ -49,7 +56,7 @@ function TabelaMotoristas() {
                     
                     <CardContent>
                         <Box marginBottom={2}>
-                            <img src={defaultprofile} width={254} height={163} alt="logo"/>
+                            <img src={getCardImage(motorista)} width={254} height={163} alt="logo"/>
                         </Box>
                         <Typography variant="h5" component="div">
                             {motorista.nome + ' ' + motorista.sobrenome}

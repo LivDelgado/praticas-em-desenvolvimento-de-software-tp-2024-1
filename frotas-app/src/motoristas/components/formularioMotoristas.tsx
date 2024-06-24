@@ -64,7 +64,10 @@ export const FormularioMotoristas = ({motorista, onSubmit}:{ motorista: Motorist
             "load",
             () => {
                 if(reader.result){
-                    setImageString(reader.result.toString());
+                    const imageString = reader.result.toString()
+                                        .replace("data:", "").replace(/^.+,/, "");
+                    console.log(imageString);
+                    setImageString(imageString);
                 }
             },
             false,
