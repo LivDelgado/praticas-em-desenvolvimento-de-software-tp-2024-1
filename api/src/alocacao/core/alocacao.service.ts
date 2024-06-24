@@ -15,7 +15,7 @@ export class AlocacaoService implements IAlocacaoService {
   async listarMotoristasDisponiveis(): Promise<Motorista[]> {
     const todosMotoristas = await this.motoristaRepository.findAll();
 
-    const motoristasDisponiveis = todosMotoristas.find((it) =>
+    const motoristasDisponiveis = todosMotoristas.filter((it) =>
       it.estaDisponivel(),
     );
 
@@ -30,7 +30,7 @@ export class AlocacaoService implements IAlocacaoService {
     if (!motorista)
       throw new AlocacaoInvalidaException('Motorista não encontrado');
 
-    const veiculo = await this.veiculoRepository.findById(veiculoId);
+    const veiculo = await this.veiculoRepository.findById(veiculoId, false);
     if (!veiculo) throw new AlocacaoInvalidaException('Veículo não encontrado');
 
     motorista.veiculo = veiculo;
