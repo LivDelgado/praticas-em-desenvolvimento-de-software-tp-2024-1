@@ -25,3 +25,6 @@ build:
 ps:
 	docker-compose ps
 
+seed:
+	docker exec -it postgres sh -c "psql < seed.sql"
+	
