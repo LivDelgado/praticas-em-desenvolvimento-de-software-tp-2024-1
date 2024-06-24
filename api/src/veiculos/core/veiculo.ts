@@ -19,6 +19,12 @@ export class Veiculo {
     ) {
       return StatusVeiculo.EM_MANUTENCAO;
     }
+
+    if (this.motorista) {
+      return StatusVeiculo.ALOCADO;
+    }
+
+    return StatusVeiculo.DISPONIVEL;
   }
 
   getNextManutencaoDate() {

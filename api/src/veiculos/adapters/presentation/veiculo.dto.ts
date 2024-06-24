@@ -48,7 +48,6 @@ export class GetVeiculoDto extends VeiculoDto {
   @ApiProperty({
     enum: ['DISPONÍVEL', 'EM MANUTENÇÃO', 'ALOCADO'],
     description: 'Status do veículo',
-    default: StatusVeiculo.DISPONIVEL,
   })
   status: StatusVeiculo;
 
