@@ -73,6 +73,12 @@ export class ManutencaoService implements IManutencaoService {
       );
     }
 
+    if (veiculo.alocado()) {
+      throw new ManutencaoInvalidaException(
+        'Não é possível deixar veículo em manutenção, ele está alocado.',
+      );
+    }
+
     const manutencoes = veiculo?.manutencoes;
     if (manutencao.dataFim <= manutencao.dataInicio) {
       throw new ManutencaoInvalidaException('Intervalo inválido');
