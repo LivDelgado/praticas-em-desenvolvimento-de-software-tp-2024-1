@@ -15,4 +15,9 @@ INSERT INTO "veiculo" (
     ('Fiat', 'Uno', '2023', '2024-01-02T00:00:00.000Z'),
     ('Honda', 'Civic', '2023', '2024-01-02T00:00:00.000Z');
 
+INSERT INTO "manutencao" ("veiculoId", "dataInicio", "dataFim")
+    (SELECT id, now() - interval '1 day', now() + interval '1 day' FROM "veiculo" WHERE "montadora" = 'Toyota' AND "modelo" = 'Corolla' AND "ano" = '2021' LIMIT 1);
+INSERT INTO "manutencao" ("veiculoId", "dataInicio", "dataFim")
+    (SELECT id, now() - interval '2 day', now() + interval '1 day' FROM "veiculo" WHERE "montadora" = 'Fiat' AND "modelo" = 'Punto' AND "ano" = '2022' LIMIT 1);
+
 COMMIT;
