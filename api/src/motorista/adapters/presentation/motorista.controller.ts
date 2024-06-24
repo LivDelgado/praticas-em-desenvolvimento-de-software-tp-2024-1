@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   HttpException,
   HttpStatus,
   Param,
@@ -49,5 +50,17 @@ export class MotoristaController {
       MotoristaDto.toDomain(motorista),
     );
     return GetMotoristaDto.fromDomain(updated);
+  }
+
+  @Delete('/:motoristaId')
+  @ApiParam({
+    name: 'motoristaId',
+    required: true,
+    description: 'ID do motorista',
+    type: Number,
+  })
+  @UseFilters(new HttpExceptionFilter())
+  async remove(@Param('motoristaId', new ParseIntPipe()) motoristaId: number) {
+    await this.motoristaService.deleteById(motoristaId);
   }
 }
