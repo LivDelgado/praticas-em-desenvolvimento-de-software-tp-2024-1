@@ -60,6 +60,7 @@ export class VeiculosDataSource implements IVeiculoRepository {
     const veiculos = await this.veiculoRepository
       .createQueryBuilder('VeiculoEntity')
       .leftJoinAndSelect('VeiculoEntity.manutencoes', 'manutencao')
+      .leftJoinAndSelect('VeiculoEntity.motorista', 'motorista')
       .where('manutencao.id is null')
       .orWhere(
         'manutencao.dataInicio <= :date AND manutencao.dataFim >= :date',

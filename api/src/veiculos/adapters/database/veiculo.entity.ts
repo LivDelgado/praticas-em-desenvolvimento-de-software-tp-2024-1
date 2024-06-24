@@ -1,3 +1,4 @@
+import { MotoristaEntity } from '../../../motorista/adapters/database/motorista.entity';
 import { ManutencaoEntity } from '../../../manutencao/adapters/database/manutencao.entity';
 import { Veiculo } from '../../core/veiculo';
 import {
@@ -7,9 +8,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  OneToOne,
 } from 'typeorm';
 
-@Entity()
+@Entity('veiculo')
 export class VeiculoEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -31,8 +33,16 @@ export class VeiculoEntity {
   @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
   @UpdateDateColumn({ name: 'updated_at' }) 'updated_at': Date;
 
-  @OneToMany(() => ManutencaoEntity, (manutencao) => manutencao.veiculo)
+  @OneToMany(() => ManutencaoEntity, (manutencao) => manutencao.veiculo, {
+    cascade: true,
+  })
   manutencoes: ManutencaoEntity[];
+
+  @OneToOne(() => MotoristaEntity, (motorista) => motorista.veiculo, {
+    cascade: true,
+    nullable: true,
+  })
+  motorista: MotoristaEntity | null;
 
   toDomain(): Veiculo {
     const domain = new Veiculo();
@@ -43,6 +53,8 @@ export class VeiculoEntity {
     domain.ano = this.ano;
     domain.dataAquisicao = this.dataAquisicao;
     domain.manutencoes = this.manutencoes?.map((it) => it.toDomain());
+
+    domain.motorista = this.motorista?.toDomain();
 
     return domain;
   }
@@ -58,6 +70,9 @@ export class VeiculoEntity {
     entity.manutencoes = veiculo.manutencoes?.map((it) =>
       ManutencaoEntity.fromDomain(it),
     );
+    entity.motorista = veiculo.motorista
+      ? MotoristaEntity.fromDomain(veiculo.motorista)
+      : undefined;
 
     return entity;
   }

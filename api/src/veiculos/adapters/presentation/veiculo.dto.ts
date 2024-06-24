@@ -42,6 +42,7 @@ export class VeiculoDto {
 export class GetVeiculoDto extends VeiculoDto {
   id: number;
   nextManutencaoDate: Date;
+  nomeMotorista: string;
 
   @IsEnum(StatusVeiculo)
   @ApiProperty({
@@ -61,6 +62,7 @@ export class GetVeiculoDto extends VeiculoDto {
     veiculoDto.dataAquisicao = veiculo.dataAquisicao;
     veiculoDto.status = veiculo.getStatus();
     veiculoDto.nextManutencaoDate = veiculo.getNextManutencaoDate();
+    veiculoDto.nomeMotorista = veiculo.getNomeMotorista();
 
     return veiculoDto;
   }
