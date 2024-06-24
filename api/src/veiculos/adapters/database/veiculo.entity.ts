@@ -54,6 +54,8 @@ export class VeiculoEntity {
     domain.dataAquisicao = this.dataAquisicao;
     domain.manutencoes = this.manutencoes?.map((it) => it.toDomain());
 
+    domain.motorista = this.motorista?.toDomain();
+
     return domain;
   }
 
@@ -68,6 +70,9 @@ export class VeiculoEntity {
     entity.manutencoes = veiculo.manutencoes?.map((it) =>
       ManutencaoEntity.fromDomain(it),
     );
+    entity.motorista = veiculo.motorista
+      ? MotoristaEntity.fromDomain(veiculo.motorista)
+      : undefined;
 
     return entity;
   }
