@@ -6,24 +6,24 @@ const instance = axios.create(api);
 
 export const MotoristaApi = {
     getAll: async function () {
-        const response = await instance.get<Motorista[]>("/motoristas");
+        const response = await instance.get<Motorista[]>("/motorista");
         return response.data;
     },
 
     get: async function (id: number) {
-        const response = await instance.get<Motorista>(`/motoristas/${id}`);
+        const response = await instance.get<Motorista>(`/motorista/${id}`);
         return response.data;
     },
 
     update: async function (motorista: Motorista) {
-        await instance.put(`/motoristas/${motorista.id}`, motorista);
+        await instance.put(`/motorista/${motorista.id}`, motorista);
     },
 
     add: async function (motorista: Motorista) {
-        await instance.post('/motoristas', motorista);
+        await instance.post('/motorista', motorista);
     },
 
     remove: async function (id: number) {
-        await instance.delete(`/motoristas/${id}`);
+        await instance.delete(`/motorista/${id}`);
     },
 };

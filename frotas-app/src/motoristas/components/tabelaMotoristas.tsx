@@ -3,10 +3,10 @@ import { MotoristaApi } from '../api/motorista.api';
 import { Motorista } from '../types/motorista';
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Card, CardActions, CardContent, Grid, Typography } from '@mui/material';
-import { Col, Row } from 'react-bootstrap';
+import defaultprofile from "../../static/images/defaulphoto.png"
 
 function TabelaMotoristas() {
-    const [motoristas, setVeiculos] = useState<Motorista[]>([]);
+    const [motoristas, setMotoristas] = useState<Motorista[]>([]);
 
     const navigate = useNavigate();
 
@@ -16,8 +16,8 @@ function TabelaMotoristas() {
 
     const fetchMotoristas = async () => {
         try {
-            const motoristas = await MotoristaApi.getAll();
-            setVeiculos(motoristas);
+            const fetched = await MotoristaApi.getAll();
+            setMotoristas(fetched);
         } catch (error) {
             console.error(error);
         }
@@ -46,20 +46,16 @@ function TabelaMotoristas() {
         >
             {motoristas.map((motorista) => (
                 <Card sx={{ maxWidth: 326, marginRight: '32px', marginBlock: '32px', padding: '8px' }}>
-                    <CardContent  >
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                            Word of the Day
-                        </Typography>
+                    
+                    <CardContent>
+                        <Box marginBottom={2}>
+                            <img src={defaultprofile} width={254} height={163} alt="logo"/>
+                        </Box>
                         <Typography variant="h5" component="div">
-                            benevolent
+                            {motorista.nome + ' ' + motorista.sobrenome}
                         </Typography>
                         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                            adjective
-                        </Typography>
-                        <Typography variant="body2">
-                            well meaning and kindly.
-                            <br />
-                            {'"a benevolent smile"'}
+                            {motorista.email}
                         </Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: 'space-between' }}>

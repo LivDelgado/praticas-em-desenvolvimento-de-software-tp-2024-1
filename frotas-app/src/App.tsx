@@ -14,6 +14,8 @@ import EdicaoManutencao from "./manutencoes/screens/edicaoManutencao";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { ListaMotoristas } from "./motoristas/screens/listaMotoristas";
+import CriacaoMotorista from "./motoristas/screens/criacaoMotorista";
+import EdicaoMotorista from "./motoristas/screens/edicaoMotorista";
 
 export default function App() {
   useEffect(() => {
@@ -70,6 +72,8 @@ export default function App() {
             <Routes>
               <Route path="/veiculos" element={<ListaVeiculos />} />
               <Route path="/motoristas" element={<ListaMotoristas />} />
+              <Route path="/motoristas/novo" element={<CriacaoMotorista />} />
+              <Route path="/motoristas/:motoristaId" element={<EdicaoMotorista />} />
               <Route path="/veiculos/:veiculoId" element={<EdicaoVeiculo />} />
               <Route path="/veiculos/novo" element={<CriacaoVeiculo />} />
               <Route path="/veiculos/:veiculoId/manutencao" element={<ListaManutencoes />} />
