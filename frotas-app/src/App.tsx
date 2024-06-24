@@ -5,6 +5,7 @@ import {
   Link,
   Routes
 } from "react-router-dom";
+import { Dashboard } from './dashboard/components/dashboard';
 import { ListaVeiculos } from "./veiculos/screens/listaVeiculos";
 import EdicaoVeiculo from "./veiculos/screens/edicaoVeiculo";
 import CriacaoVeiculo from "./veiculos/screens/criacaoVeiculo";
@@ -68,6 +69,8 @@ export default function App() {
         <div className="app-content">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Routes>
+            
+              <Route path="/" element={<Dashboard />} />
               <Route path="/veiculos" element={<ListaVeiculos />} />
               <Route path="/motoristas" element={<ListaMotoristas />} />
               <Route path="/veiculos/:veiculoId" element={<EdicaoVeiculo />} />
