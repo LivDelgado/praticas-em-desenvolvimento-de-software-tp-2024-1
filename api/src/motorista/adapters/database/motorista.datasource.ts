@@ -37,7 +37,11 @@ export class MotoristaDataSource implements IMotoristaRepository {
   }
 
   async findAll(): Promise<Motorista[]> {
-    const motoristas = await this.motoristaRepository.find();
+    const motoristas = await this.motoristaRepository.find({
+      relations: {
+        veiculo: true,
+      },
+    });
     return motoristas.map((motorista) => motorista.toDomain());
   }
 

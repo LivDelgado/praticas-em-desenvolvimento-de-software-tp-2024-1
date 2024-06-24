@@ -40,14 +40,17 @@ export class MotoristaDto {
 
 export class GetMotoristaDto extends MotoristaDto {
   id: number;
+  nomeVeiculo: string;
 
   static fromDomain(motorista: Motorista): GetMotoristaDto {
     const motoristaDto = new GetMotoristaDto();
+
+    motoristaDto.id = motorista.id;
     motoristaDto.email = motorista.email;
     motoristaDto.nome = motorista.nome;
     motoristaDto.sobrenome = motorista.sobrenome;
     motoristaDto.imagemAvatar = motorista.imagemAvatar;
-    motoristaDto.id = motorista.id;
+    motoristaDto.nomeVeiculo = motorista.getNomeVeiculo();
 
     return motoristaDto;
   }
