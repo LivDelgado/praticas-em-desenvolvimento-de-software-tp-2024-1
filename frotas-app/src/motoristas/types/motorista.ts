@@ -4,4 +4,5 @@ export type Motorista = {
     sobrenome: string;
     email: string;
     imagemAvatar: string;
+    nomeVeiculo: string;
 }

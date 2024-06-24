@@ -56,13 +56,16 @@ function TabelaMotoristas() {
                     
                     <CardContent>
                         <Box marginBottom={2}>
-                            <img src={getCardImage(motorista)} width={254} height={163} alt="logo"/>
+                            <img src={defaultprofile} width={254} height={163} alt="logo"/>
                         </Box>
                         <Typography variant="h5" component="div">
                             {motorista.nome + ' ' + motorista.sobrenome}
                         </Typography>
                         <Typography sx={{ mb: 1.5 }} color="text.secondary">
                             {motorista.email}
+                        </Typography>
+                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                            {motorista.nomeVeiculo}
                         </Typography>
                     </CardContent>
                     <CardActions sx={{ justifyContent: 'space-between' }}>
