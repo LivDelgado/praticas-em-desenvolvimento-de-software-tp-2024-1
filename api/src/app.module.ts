@@ -18,6 +18,8 @@ import { MotoristaDataSource } from './motorista/adapters/database/motorista.dat
 import { MotoristaEntity } from './motorista/adapters/database/motorista.entity';
 import { MotoristaModule } from './motorista/motorista.module';
 import { NotificacoesModule } from './notificacoes/notificacoes.module';
+import { AlocacaoController } from './alocacao/adapters/presentation/alocacao.controller';
+import { AlocacaoModule } from './alocacao/alocacao.module';
 
 @Module({
   imports: [
@@ -38,12 +40,14 @@ import { NotificacoesModule } from './notificacoes/notificacoes.module';
     ManutencaoModule,
     NotificacoesModule,
     MotoristaModule,
+    AlocacaoModule,
   ],
   controllers: [
     GestorController,
     VeiculoController,
     ManutencaoController,
     MotoristaController,
+    AlocacaoController,
   ],
   providers: [
     GestorDataSource,

@@ -8,4 +8,8 @@ export class Motorista {
   imagemAvatar: string;
 
   veiculo: Veiculo | undefined;
+
+  estaDisponivel(): boolean {
+    return Boolean(this.veiculo);
+  }
 }
