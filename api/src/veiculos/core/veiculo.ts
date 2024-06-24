@@ -1,4 +1,5 @@
 import { Manutencao } from 'src/manutencao/core/manutencao';
+import { Motorista } from 'src/motorista/core/motorista';
 
 export class Veiculo {
   id: number | undefined;
@@ -8,6 +9,8 @@ export class Veiculo {
   dataAquisicao: Date;
 
   manutencoes: Manutencao[] | undefined;
+
+  motorista: Motorista | undefined;
 
   getStatus(): StatusVeiculo {
     if (
@@ -30,6 +33,12 @@ export class Veiculo {
 
       return null;
     }
+  }
+
+  getNomeMotorista() {
+    return this.motorista
+      ? this.motorista.nome + ' ' + this.motorista.sobrenome
+      : null;
   }
 }
 

@@ -18,6 +18,8 @@ import { MotoristaDataSource } from './motorista/adapters/database/motorista.dat
 import { MotoristaEntity } from './motorista/adapters/database/motorista.entity';
 import { MotoristaModule } from './motorista/motorista.module';
 import { NotificacoesModule } from './notificacoes/notificacoes.module';
+import { AlocacaoController } from './alocacao/adapters/presentation/alocacao.controller';
+import { AlocacaoModule } from './alocacao/alocacao.module';
 
 @Module({
   imports: [
@@ -29,13 +31,8 @@ import { NotificacoesModule } from './notificacoes/notificacoes.module';
       username: process.env.DB_USER,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      synchronize: true,
-      entities: [
-        VeiculoEntity,
-        ManutencaoEntity,
-        GestorEntity,
-        MotoristaEntity,
-      ],
+      synchronize: false,
+      autoLoadEntities: true,
       migrations: [],
     }),
     GestorsModule,
@@ -43,12 +40,14 @@ import { NotificacoesModule } from './notificacoes/notificacoes.module';
     ManutencaoModule,
     NotificacoesModule,
     MotoristaModule,
+    AlocacaoModule,
   ],
   controllers: [
     GestorController,
     VeiculoController,
     ManutencaoController,
     MotoristaController,
+    AlocacaoController,
   ],
   providers: [
     GestorDataSource,
