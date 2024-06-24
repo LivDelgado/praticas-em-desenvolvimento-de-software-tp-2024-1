@@ -3,5 +3,6 @@ export type Motorista = {
     nome: string;
     sobrenome: string;
     email: string;
-    imagem: string;
+    imagemAvatar: string;
+    nomeVeiculo: string;
 }

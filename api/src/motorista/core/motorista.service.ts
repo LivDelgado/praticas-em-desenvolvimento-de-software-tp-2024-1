@@ -18,4 +18,7 @@ export class MotoristaService implements IMotoristaService {
   async list(): Promise<Motorista[]> {
     return await this.motoristaRepository.findAll();
   }
+  async getById(id: number): Promise<Motorista> {
+    return await this.motoristaRepository.findById(id);
+  }
 }

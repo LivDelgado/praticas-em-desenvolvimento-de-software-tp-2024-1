@@ -25,7 +25,7 @@ export class MotoristaDataSource implements IMotoristaRepository {
 
   async update(id: number, motorista: Motorista): Promise<Motorista> {
     motorista.id = id;
-    const updated = await this.motoristaRepository.create(
+    const updated = await this.motoristaRepository.save(
       MotoristaEntity.fromDomain(motorista),
     );
 
