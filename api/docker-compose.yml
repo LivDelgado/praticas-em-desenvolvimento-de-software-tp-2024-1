@@ -18,9 +18,14 @@ services:
       - '5433:${DB_PORT}'
     volumes:
       - data:/data/db
+      - ./seeder/seed.sql:/seed.sql
     environment:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
+      - PGUSER=${DB_USER}
+      - PGPASSWORD=${DB_PASSWORD}
+      - PGDATABASE=${DB_NAME}
+      - PGHOST=${DB_HOST}
 
 volumes: 
  data: {}
