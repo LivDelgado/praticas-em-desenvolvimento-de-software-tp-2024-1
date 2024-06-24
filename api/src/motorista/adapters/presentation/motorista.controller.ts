@@ -71,4 +71,19 @@ export class MotoristaController {
     const motoristas = await this.motoristaService.list();
     return motoristas.map((it) => GetMotoristaDto.fromDomain(it));
   }
+
+  @Get('/:motoristaId')
+  @ApiParam({
+    name: 'motoristaId',
+    required: true,
+    description: 'ID do motorista',
+    type: Number,
+  })
+  @UseFilters(new HttpExceptionFilter())
+  async getById(
+    @Param('motoristaId', new ParseIntPipe()) motoristaId: number,
+  ): Promise<GetMotoristaDto> {
+    const motorista = await this.motoristaService.getById(motoristaId);
+    return GetMotoristaDto.fromDomain(motorista);
+  }
 }
