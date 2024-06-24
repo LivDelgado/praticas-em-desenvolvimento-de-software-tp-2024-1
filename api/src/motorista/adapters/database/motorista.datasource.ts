@@ -35,4 +35,9 @@ export class MotoristaDataSource implements IMotoristaRepository {
   async deleteById(id: number): Promise<void> {
     this.motoristaRepository.delete({ id: id });
   }
+
+  async findAll(): Promise<Motorista[]> {
+    const motoristas = await this.motoristaRepository.find();
+    return motoristas.map((motorista) => motorista.toDomain());
+  }
 }
