@@ -140,3 +140,112 @@ O figma do projeto pode ser encontrado [aqui](https://www.figma.com/file/wqJ3OV2
   * Implementar opção de limpar a alocação na tela de alocação
   * Implementar API para deletar alocação
 </details>
+
+# Backlog do Sprint
+
+As tarefas realizadas e seus responsáveis podem ser acessadas [neste projeto do Github](https://github.com/users/LivDelgado/projects/4/views/1?filterQuery=sprint%3A%22Sprint+2%22).
+
+Todas as estórias propostas no sprint 1 foram implementadas.
+
+<details>
+  <summary>Estórias e tarefas da sprint</summary>
+
+  <details>
+    <summary>Como Administrador de frota, gostaria de adicionar um veículo à minha frota.</summary>
+
+    Tarefas:
+
+    * Criar aplicação base em React -> Lívia
+    * Instalar o banco de dados e criar as primeiras tabelas -> Lívia
+    * Criar aplicação base Node -> Gabriel
+    * Criar docker compose para subir todas as aplicações -> Gabriel
+    * Implementar API para adicionar um veículo -> Lívia
+    * Implementar tela de cadastro de veículo -> Lívia
+
+  </details>
+
+  <details>
+    <summary>Como Administrador de frota, gostaria de editar e deletar informações sobre um veículo.</summary>
+
+    Tarefas:
+
+    * Implementar tela de listagem de veículos -> Lívia
+    * Implementar API de listagem de veículos -> Lívia
+    * Implementar API para obter informações de um veículo específico -> Lívia
+    * Implementar API para editar um veículo -> Lívia
+    * Implementar API para deletar um veículo -> Lívia
+    * Implementar modal de confirmação de deleção de veículo -> Lívia
+  </details>
+
+  <details>
+    <summary>Como Administrador de frota, gostaria de programar a manutenção de um veículo.</summary>
+    
+    Tarefas:
+
+    * Implementar visualização da data de manutenção na tela de listagem de veículo -> Lívia
+    * Adicionar botão de manutenção na tela de listagem de veículo -> Lívia
+    * Implementar tela para cadastrar/editar manutenção do veículo -> Lívia
+    * Implementar API para cadastrar/editar manutenção do veículo -> Lívia
+  </details>
+
+  <details>
+    <summary>Como Administrador de frota, gostaria de receber notificações sobre manutenções que se aproximam.</summary>
+      
+    Tarefas:
+
+    * Implementar tela para edição de informações do administrador (para cadastrar email) -> Gabriel
+    * Implementar API para salvar informações do gestor da frota -> Adalberto
+    * Implementar notificação para o gestor via email no dia anterior à data agendada para manutenção -> Adalberto
+  </details>
+
+  <details>
+    <summary>Como Administrador de frota, gostaria de visualizar a distribuição dos veículos entre os estados de manutenção, alocados ou disponíveis.</summary>
+        
+    Tarefas:
+
+    * Implementar dashboard de controle da frota -> Gabriel
+    * Implementar API para o dashboard do controle de frota -> Adalberto
+  </details>
+
+  <details>
+    <summary>Como Administrador de frota, gostaria de adicionar um motorista à base de dados.</summary>
+          
+    Tarefas:
+
+    * Implementar API para adicionar um motorista -> Eduardo
+    * Implementar tela de cadastro de motorista -> Eduardo
+  </details>
+
+  <details>
+    <summary>Como Administrador de frota, gostaria de editar e deletar informações sobre motoristas.</summary>
+            
+    Tarefas:
+
+    * Implementar tela de listagem de motoristas -> Eduardo
+    * Implementar API de listagem de motoristas -> Eduardo
+    * Implementar API para obter motorista de um veículo específico -> Eduardo
+    * Implementar API para editar um motorista -> Eduardo
+    * Implementar API para deletar um motorista -> Eduardo
+    * Implementar modal de confirmação de deleção de motorista -> Eduardo
+  </details>
+
+  <details>
+    <summary>Como Administrador de frota, gostaria de alocar um veículo para um motorista.</summary>
+          
+    Tarefas:
+
+    * Implementar visualização de motorista na tela de listagem de veículo -> Gabriel
+    * Adicionar tela de alocação de motorista ao veículo -> Gabriel
+    * Adicionar botão de alocação de motorista na tela de cadastro/edição de veículo -> Gabriel
+    * Adicionar API para cadastrar alocação e mudar status do motorista -> Adalberto
+  </details>
+
+  <details>
+    <summary>Como Administrador de frota, gostaria de editar e deletar a alocação de um veículo para um motorista.</summary>
+            
+    Tarefas:
+
+    * Implementar opção de limpar a alocação na tela de alocação -> Gabriel
+    * Implementar API para deletar alocação -> Adalberto
+  </details>
+</details>
