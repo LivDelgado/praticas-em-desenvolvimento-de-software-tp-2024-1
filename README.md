@@ -250,3 +250,48 @@ Faltaram apenas algumas tasks de frontend das estórias 8 e 9 - totalizando 89% 
     * Implementar API para deletar alocação -> Lívia
   </details>
 </details>
+
+# Arquitetura
+
+O serviço backend foi implementado seguindo o padrão de arquitetura hexagonal.
+
+```
+-> dominio
+  -> core
+    -> entity
+    -> service
+    -> ports
+      -> inbound
+        -> IService
+      -> outbound
+        -> IRepository
+  -> adapters
+    -> database
+      -> datasource
+      -> ORM Entity
+    -> presentation
+      -> controller
+      -> dto
+```
+
+O domínio que foge a essa estrutura de classes contém apenas um adapter de Email Provider em vez do repository.
+
+![Estrutura geral da arquitetura](architecture.png)
+
+## Configuração da injeção de dependência
+
+```typescript
+@Module({
+  imports: [TypeOrmModule.forFeature([VeiculoEntity])],
+  providers: [
+    {
+      provide: IVeiculoRepository,
+      useClass: VeiculosDataSource,
+    },
+    { provide: IVeiculoService, useClass: VeiculosService },
+  ],
+  exports: [IVeiculoService, IVeiculoRepository, TypeOrmModule],
+})
+export class VeiculosModule {}
+```
+
