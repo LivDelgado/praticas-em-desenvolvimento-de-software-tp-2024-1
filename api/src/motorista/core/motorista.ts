@@ -12,4 +12,14 @@ export class Motorista {
   estaDisponivel(): boolean {
     return Boolean(this.veiculo);
   }
+
+  getNomeVeiculo(): string {
+    return this.veiculo
+      ? this.veiculo.montadora +
+          ' ' +
+          this.veiculo.modelo +
+          ' ' +
+          this.veiculo.ano
+      : null;
+  }
 }

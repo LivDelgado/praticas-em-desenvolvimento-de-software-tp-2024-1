@@ -4,6 +4,7 @@ import { Motorista } from 'src/motorista/core/motorista';
 import { IVeiculoRepository } from 'src/veiculos/core/ports/outbound/IVeiculoRepository';
 import { IMotoristaRepository } from 'src/motorista/core/ports/outbound/IMotoristaRepository';
 import { AlocacaoInvalidaException } from './alocacao.exceptions';
+import { StatusVeiculo } from 'src/veiculos/core/veiculo';
 
 @Injectable()
 export class AlocacaoService implements IAlocacaoService {
@@ -32,6 +33,11 @@ export class AlocacaoService implements IAlocacaoService {
 
     const veiculo = await this.veiculoRepository.findById(veiculoId, false);
     if (!veiculo) throw new AlocacaoInvalidaException('Veículo não encontrado');
+    if (veiculo.emManutencao()) {
+      throw new AlocacaoInvalidaException(
+        'Veículo não pode ser alocado pois está em manutenção',
+      );
+    }
 
     motorista.veiculo = veiculo;
     return await this.motoristaRepository.save(motorista);
