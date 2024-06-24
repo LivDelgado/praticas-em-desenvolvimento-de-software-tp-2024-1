@@ -10,15 +10,25 @@ import { Motorista } from 'src/motorista/core/motorista';
 export class MotoristaDataSource implements IMotoristaRepository {
   constructor(
     @InjectRepository(MotoristaEntity)
-    private readonly MotoristaRepository: Repository<MotoristaEntity>,
+    private readonly motoristaRepository: Repository<MotoristaEntity>,
   ) {}
+
   async save(motorista: Motorista): Promise<Motorista> {
-    const newMotorista = this.MotoristaRepository.create(
+    const newMotorista = this.motoristaRepository.create(
       MotoristaEntity.fromDomain(motorista),
     );
 
-    const created = await this.MotoristaRepository.save(newMotorista);
+    const created = await this.motoristaRepository.save(newMotorista);
 
-    return created.toDomain();
+    return created?.toDomain();
+  }
+
+  async update(id: number, motorista: Motorista): Promise<Motorista> {
+    motorista.id = id;
+    const updated = await this.motoristaRepository.create(
+      MotoristaEntity.fromDomain(motorista),
+    );
+
+    return updated?.toDomain();
   }
 }
