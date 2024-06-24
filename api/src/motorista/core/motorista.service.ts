@@ -12,4 +12,7 @@ export class MotoristaService implements IMotoristaService {
   async update(id: number, motorista: Motorista): Promise<Motorista> {
     return await this.motoristaRepository.update(id, motorista);
   }
+  async deleteById(id: number): Promise<void> {
+    return await this.motoristaRepository.deleteById(id);
+  }
 }

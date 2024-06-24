@@ -31,4 +31,8 @@ export class MotoristaDataSource implements IMotoristaRepository {
 
     return updated?.toDomain();
   }
+
+  async deleteById(id: number): Promise<void> {
+    this.motoristaRepository.delete({ id: id });
+  }
 }
