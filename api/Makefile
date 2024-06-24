@@ -4,6 +4,8 @@ setup: build start migrate
 
 create-migrations: build start generate-migrations
 
+present: setup seed
+
 start:
 	docker-compose up -d
 
