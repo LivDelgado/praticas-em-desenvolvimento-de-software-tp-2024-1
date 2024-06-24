@@ -145,7 +145,8 @@ O figma do projeto pode ser encontrado [aqui](https://www.figma.com/file/wqJ3OV2
 
 As tarefas realizadas e seus responsáveis podem ser acessadas [neste projeto do Github](https://github.com/users/LivDelgado/projects/4/views/1?filterQuery=sprint%3A%22Sprint+2%22).
 
-Todas as estórias propostas no sprint 1 foram implementadas.
+Quase todas as estórias foram completadas.
+Faltaram apenas algumas tasks de frontend das estórias 8 e 9 - totalizando 89% de completude da sprint.
 
 <details>
   <summary>Estórias e tarefas da sprint</summary>
@@ -221,7 +222,7 @@ Todas as estórias propostas no sprint 1 foram implementadas.
             
     Tarefas:
 
-    * Implementar tela de listagem de motoristas -> Eduardo
+    * Implementar tela de listagem de motoristas -> Eduardo e Gabriel
     * Implementar API de listagem de motoristas -> Eduardo
     * Implementar API para obter motorista de um veículo específico -> Eduardo
     * Implementar API para editar um motorista -> Eduardo
@@ -237,7 +238,7 @@ Todas as estórias propostas no sprint 1 foram implementadas.
     * Implementar visualização de motorista na tela de listagem de veículo -> Gabriel
     * Adicionar tela de alocação de motorista ao veículo -> Gabriel
     * Adicionar botão de alocação de motorista na tela de cadastro/edição de veículo -> Gabriel
-    * Adicionar API para cadastrar alocação e mudar status do motorista -> Adalberto
+    * Adicionar API para cadastrar alocação e mudar status do motorista -> Lívia
   </details>
 
   <details>
@@ -246,6 +247,51 @@ Todas as estórias propostas no sprint 1 foram implementadas.
     Tarefas:
 
     * Implementar opção de limpar a alocação na tela de alocação -> Gabriel
-    * Implementar API para deletar alocação -> Adalberto
+    * Implementar API para deletar alocação -> Lívia
   </details>
 </details>
+
+# Arquitetura
+
+O serviço backend foi implementado seguindo o padrão de arquitetura hexagonal.
+
+```
+-> dominio
+  -> core
+    -> entity
+    -> service
+    -> ports
+      -> inbound
+        -> IService
+      -> outbound
+        -> IRepository
+  -> adapters
+    -> database
+      -> datasource
+      -> ORM Entity
+    -> presentation
+      -> controller
+      -> dto
+```
+
+O domínio que foge a essa estrutura de classes contém apenas um adapter de Email Provider em vez do repository.
+
+![Estrutura geral da arquitetura](architecture.png)
+
+## Configuração da injeção de dependência
+
+```typescript
+@Module({
+  imports: [TypeOrmModule.forFeature([VeiculoEntity])],
+  providers: [
+    {
+      provide: IVeiculoRepository,
+      useClass: VeiculosDataSource,
+    },
+    { provide: IVeiculoService, useClass: VeiculosService },
+  ],
+  exports: [IVeiculoService, IVeiculoRepository, TypeOrmModule],
+})
+export class VeiculosModule {}
+```
+
